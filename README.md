@@ -87,7 +87,7 @@
             position: relative;
             overflow: hidden;
             transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1);
-            animation: fadeInUp 1s forwards 2.5s; /* Delayed until after text */
+            animation: fadeInUp 1s forwards 2.5s; 
             opacity: 0;
         }
 
@@ -208,7 +208,7 @@
             <li>3 Signals Per Day (Sometimes More)</li>
         </ul>
         <a href="https://whop.com/xmoney-1/xmoney-ed/" class="join-btn" onclick="joinVIP()">Claim Access</a>
-        <div id="memberCounter">0 Elite Members</div>
+        <div id="memberCounter">0 MEMBERS ONLY</div>
     </div>
 </div>
 
@@ -287,16 +287,21 @@
     }
 
     const counterEl = document.getElementById("memberCounter");
-    const target = 1752;
-    let current = 0;
-    const updateCounter = () => {
-        const increment = target / 100;
-        if(current < target) {
-            current += increment;
-            counterEl.innerText = Math.ceil(current).toLocaleString() + " ELITE MEMBERS";
-            setTimeout(updateCounter, 30);
+    const target = 13912;
+    const duration = 6000; // 6 seconds
+    let startTime = null;
+
+    const updateCounter = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const progress = timestamp - startTime;
+        const current = Math.min(Math.floor((progress / duration) * target), target);
+        
+        counterEl.innerText = current.toLocaleString() + " MEMBERS ONLY";
+        
+        if (progress < duration) {
+            requestAnimationFrame(updateCounter);
         } else {
-            counterEl.innerText = target.toLocaleString() + " ELITE MEMBERS";
+            counterEl.innerText = target.toLocaleString() + " MEMBERS ONLY";
         }
     };
 
@@ -306,7 +311,10 @@
 
     init();
     animate();
-    setTimeout(updateCounter, 3500); // Delayed counter to match card reveal
+    // Start counter after the card animation begins (2.5s)
+    setTimeout(() => {
+        requestAnimationFrame(updateCounter);
+    }, 2500); 
 </script>
 
 </body>
