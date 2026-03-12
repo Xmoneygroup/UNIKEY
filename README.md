@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sq">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -185,30 +185,30 @@
     
     <div class="manifesto-container">
         <p class="manifesto-text" style="animation-delay: 0.5s">
-            The market has <span class="highlight-cyan">no mercy</span> for anyone. Without discipline and a clear strategy, losses are inevitable.
+            Tregu nuk ka <span class="highlight-cyan">asnjë mëshirë</span> për askënd. Pa disiplinë dhe një strategji të qartë, humbjet janë të pashmangshme.
         </p>
         <p class="manifesto-text" style="animation-delay: 1.0s">
-            Many traders act on emotion, drawing charts based on feelings instead of following a structured plan. That’s why most end up losing control.
+            Shumë tregtarë veprojnë mbi emocione, duke ndërtuar plane bazuar në ndjenja në vend që të ndjekin një strukturë strikte. Kjo është arsyeja pse shumica humbin kontrollin.
         </p>
         <p class="manifesto-text" style="animation-delay: 1.5s">
-            Our goal is to help you build a <span class="highlight-cyan">structured approach</span> with proper risk management and a clear trading strategy.
+            Qëllimi ynë është t'ju ndihmojmë të ndërtoni një <span class="highlight-cyan">qasje të strukturuar</span> me menaxhimin e duhur të riskut dhe një strategji tregtimi të qartë.
         </p>
         <p class="manifesto-text" style="animation-delay: 2.0s">
-            This group will be active for <span class="highlight-urgent">only 3 months</span>. After that period, access will be permanently closed.
+            Ky grup do të jetë aktiv <span class="highlight-urgent">vetëm për 3 muaj</span>. Pas kësaj periudhe, qasja do të mbyllet përgjithmonë.
         </p>
         <p class="manifesto-text" style="animation-delay: 2.5s">
-            If you want to improve the way you trade and become part of our <span class="highlight-cyan">VIP ZONE</span>, join us now. Don’t wait until it’s too late.
+            Nëse dëshironi të përmirësoni mënyrën se si tregtoni dhe të bëheni pjesë e <span class="highlight-cyan">ZONËS VIP</span>, bashkohuni tani. Mos prisni derisa të jetë vonë.
         </p>
     </div>
 
     <div class="vip-card">
         <ul class="features-list">
-            <li>Daily Forex Signals</li>
-            <li>57% - 60% Guaranteed Win Rate</li>
-            <li>3 Signals Per Day (Sometimes More)</li>
+            <li>Sinjale Ditore Forex</li>
+            <li>57% - 60% Shkallë Fitoreje e Garantuar</li>
+            <li>3 Sinjale në Ditë (Ndonjëherë më shumë)</li>
         </ul>
-        <a href="https://whop.com/xmoney-1/xmoney-ed/" class="join-btn" onclick="joinVIP()">Claim Access</a>
-        <div id="memberCounter">0 MEMBERS ONLY</div>
+        <a href="https://whop.com/xmoney-1/xmoney-ed/" class="join-btn" onclick="joinVIP()">Përfitoni Qasjen</a>
+        <div id="memberCounter">0 ANËTARË VETËM</div>
     </div>
 </div>
 
@@ -288,7 +288,7 @@
 
     const counterEl = document.getElementById("memberCounter");
     const target = 13912;
-    const duration = 6000; // 6 seconds
+    const duration = 6000; // 6 sekonda
     let startTime = null;
 
     const updateCounter = (timestamp) => {
@@ -296,12 +296,12 @@
         const progress = timestamp - startTime;
         const current = Math.min(Math.floor((progress / duration) * target), target);
         
-        counterEl.innerText = current.toLocaleString() + " MEMBERS ONLY";
+        counterEl.innerText = current.toLocaleString() + " ANËTARË VETËM";
         
         if (progress < duration) {
             requestAnimationFrame(updateCounter);
         } else {
-            counterEl.innerText = target.toLocaleString() + " MEMBERS ONLY";
+            counterEl.innerText = target.toLocaleString() + " ANËTARË VETËM";
         }
     };
 
