@@ -240,8 +240,8 @@
     const ctx = canvas.getContext("2d");
     let w, h;
     let stars = [];
-    let speedMult = 18; // Crazy high speed
-    let targetSpeed = 18;
+    let speedMult = 1.5; // Smooth, slow drift
+    let targetSpeed = 1.5;
     
     function resize() {
         w = canvas.width = window.innerWidth;
@@ -250,18 +250,17 @@
     window.addEventListener("resize", resize);
     resize();
 
-    // 3D Perspective Warp Speed Model
     class Star {
         constructor() {
             this.reset();
         }
 
         reset() {
-            this.x = (Math.random() - 0.5) * w * 2;
-            this.y = (Math.random() - 0.5) * h * 2;
+            this.x = (Math.random() - 0.5) * w * 2.5;
+            this.y = (Math.random() - 0.5) * h * 2.5;
             this.z = Math.random() * w; 
             this.pz = this.z; 
-            this.color = Math.random() > 0.5 ? '#00f2ff' : '#d4af37';
+            this.color = Math.random() > 0.5 ? 'rgba(0, 242, 255,' : 'rgba(212, 175, 55,';
         }
 
         update() {
@@ -275,7 +274,6 @@
         }
 
         draw() {
-            // Perspective Projection logic
             let sx = ((this.x / this.z) * w) + w / 2;
             let sy = ((this.y / this.z) * h) + h / 2;
             
@@ -283,9 +281,10 @@
             let py = ((this.y / this.pz) * h) + h / 2;
 
             ctx.beginPath();
-            ctx.strokeStyle = this.color;
-            // Lines get thicker as they approach the camera
-            ctx.lineWidth = (1 - this.z / w) * 3;
+            // Opacity linked to proximity for a soft fade-in effect
+            let alpha = 1 - (this.z / w);
+            ctx.strokeStyle = this.color + alpha + ')';
+            ctx.lineWidth = alpha * 2;
             ctx.lineCap = 'round';
             ctx.moveTo(px, py);
             ctx.lineTo(sx, sy);
@@ -295,17 +294,16 @@
 
     function init() {
         stars = [];
-        for (let i = 0; i < 800; i++) stars.push(new Star());
+        for (let i = 0; i < 400; i++) stars.push(new Star());
     }
 
     function animate() {
-        // Creates the "ghosting" trail effect
-        ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+        // Lower opacity here (0.05) creates long, cinematic light trails
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, w, h);
 
-        // Smooth speed transition logic
-        if (Math.abs(speedMult - targetSpeed) > 0.1) {
-            speedMult += (targetSpeed - speedMult) * 0.05;
+        if (Math.abs(speedMult - targetSpeed) > 0.01) {
+            speedMult += (targetSpeed - speedMult) * 0.02;
         }
 
         stars.forEach(s => {
@@ -316,19 +314,16 @@
         requestAnimationFrame(animate);
     }
 
-    // INTERACTION: Hover Slowdown
     const card = document.getElementById('vipCard');
-    card.addEventListener('mouseenter', () => targetSpeed = 0.8);
-    card.addEventListener('mouseleave', () => targetSpeed = 18);
+    // Near halt on hover
+    card.addEventListener('mouseenter', () => targetSpeed = 0.15);
+    card.addEventListener('mouseleave', () => targetSpeed = 1.5);
 
-    // INTERACTION: Click "Special" Slowdown (3 Seconds)
     function joinVIP() { 
         document.getElementById('vipCard').style.transform = "scale(0.95)"; 
-        
-        targetSpeed = 0.1; // Sudden cinematic brake
-        
+        targetSpeed = 0.05; 
         setTimeout(() => {
-            targetSpeed = 18; // Warp back to high speed
+            targetSpeed = 1.5; 
         }, 3000);
     }
 
