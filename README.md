@@ -236,7 +236,8 @@
     const canvas = document.getElementById("neuralCanvas");
     const ctx = canvas.getContext("2d");
     let w, h;
-    let time = 0;
+    let particles = [];
+    let tick = 0;
 
     function resize() {
         w = canvas.width = window.innerWidth;
@@ -246,67 +247,53 @@
     resize();
 
     function draw() {
-        time++;
-        ctx.fillStyle = "#000";
+        tick++;
+        ctx.fillStyle = "rgba(0, 0, 0, 0.15)"; // Motion blur effect
         ctx.fillRect(0, 0, w, h);
 
-        const centerX = w / 2;
-        const centerY = h / 2;
-        
-        // --- 3D GRID FLOOR ---
-        ctx.lineWidth = 1;
-        for (let i = -10; i < 10; i++) {
-            // Perspective lines (Vertical-ish)
+        const lines = 8;
+        const amplitude = 40;
+        const speed = 0.02;
+
+        for (let i = 0; i < lines; i++) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(0, 242, 255, 0.15)`;
-            ctx.moveTo(centerX, centerY);
-            ctx.lineTo(centerX + i * (w * 0.2), h);
-            ctx.stroke();
-
-            // Moving Horizontal lines
-            let offset = (time * 2) % 100;
-            for (let j = 0; j < 10; j++) {
-                let y = centerY + (Math.pow(j, 2) * 10) + offset;
-                if (y > h) continue;
-                let opacity = (y - centerY) / (h - centerY);
-                ctx.strokeStyle = `rgba(0, 242, 255, ${opacity * 0.2})`;
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(w, y);
-                ctx.stroke();
-            }
-        }
-
-        // --- DATA BEAMS ---
-        for (let i = 0; i < 15; i++) {
-            let x = (Math.sin(i * 444.4) * 0.5 + 0.5) * w;
-            let speed = (Math.sin(i) * 0.5 + 1.5);
-            let hBeam = (Math.sin(time * 0.02 + i) * 0.5 + 0.5) * 300;
-            let y = (time * speed) % (h + 300) - 300;
-
-            let grad = ctx.createLinearGradient(x, y, x, y + hBeam);
-            grad.addColorStop(0, "transparent");
-            grad.addColorStop(0.5, i % 2 === 0 ? "rgba(0, 242, 255, 0.4)" : "rgba(212, 175, 55, 0.3)");
-            grad.addColorStop(1, "transparent");
-
-            ctx.fillStyle = grad;
-            ctx.fillRect(x, y, 2, hBeam);
+            ctx.lineWidth = i === 0 ? 3 : 1;
             
-            // Glow at the tip
-            if(hBeam > 100) {
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = i % 2 === 0 ? "var(--cyan)" : "var(--gold)";
-                ctx.fillRect(x, y + hBeam/2, 2, 2);
-                ctx.shadowBlur = 0;
+            // Alternating colors between Cyan and Gold
+            let color = i % 2 === 0 ? "0, 242, 255" : "212, 175, 55";
+            let opacity = (1 - i / lines) * 0.4;
+            ctx.strokeStyle = `rgba(${color}, ${opacity})`;
+
+            for (let x = 0; x < w; x += 2) {
+                // The "Magic" Math for the waves
+                let noise = Math.sin(x * 0.002 + tick * speed + i) * amplitude;
+                let wave2 = Math.cos(x * 0.005 - tick * (speed * 0.5) + i) * (amplitude * 0.5);
+                let y = (h / 2) + noise + wave2 + (i * 15) - (lines * 7);
+
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
             }
+            ctx.stroke();
         }
 
-        // --- AMBIENT GLOW ---
-        let radialGrad = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, h);
-        radialGrad.addColorStop(0, "transparent");
-        radialGrad.addColorStop(1, "rgba(0, 242, 255, 0.05)");
-        ctx.fillStyle = radialGrad;
-        ctx.fillRect(0,0,w,h);
+        // Floating Gold Dust
+        if (particles.length < 50) {
+            particles.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                s: Math.random() * 2,
+                v: Math.random() * 0.5 + 0.1
+            });
+        }
+
+        particles.forEach((p, index) => {
+            p.y -= p.v;
+            if (p.y < 0) p.y = h;
+            ctx.fillStyle = `rgba(212, 175, 55, 0.5)`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2);
+            ctx.fill();
+        });
 
         requestAnimationFrame(draw);
     }
