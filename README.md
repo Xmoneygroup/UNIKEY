@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNIKEY - Professional Auto Locksmith</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #FFD700;
@@ -104,7 +104,7 @@
             border: 1px solid var(--border-glass);
             backdrop-filter: blur(15px);
             padding: 40px;
-            border-radius: 2px; /* Square/Sharp Luxury Look */
+            border-radius: 2px;
             text-align: left;
             margin-bottom: 50px;
             position: relative;
@@ -141,32 +141,35 @@
             font-weight: bold;
         }
 
-        /* --- GALERIA --- */
+        /* --- GALERIA E RREGULLUAR --- */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 60px;
         }
 
         .img-box {
             height: 350px;
             overflow: hidden;
-            border: 1px solid var(--border-glass);
+            border: 2px solid var(--border-glass);
             position: relative;
+            background: #111; /* Background i zi nese foto nuk ngarkon dot */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(40%);
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.6s ease;
         }
 
         .img-box:hover img {
-            filter: grayscale(0%);
             transform: scale(1.1);
+            filter: brightness(1.2);
         }
 
         /* --- RATING --- */
@@ -177,17 +180,8 @@
             margin-top: 40px;
         }
 
-        .stars {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .star {
-            cursor: pointer;
-            color: #222;
-            transition: 0.3s;
-        }
-
+        .stars { font-size: 2.5rem; margin-bottom: 20px; }
+        .star { cursor: pointer; color: #222; transition: 0.3s; }
         .star.active { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
         textarea {
@@ -210,12 +204,6 @@
             text-transform: uppercase;
             cursor: pointer;
             font-family: 'Orbitron';
-        }
-
-        /* Animacione */
-        @keyframes slide {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
         }
     </style>
 </head>
@@ -241,12 +229,12 @@
         </div>
 
         <div class="gallery-grid">
-            <div class="img-box"><img src="foto1.jpg"></div>
-            <div class="img-box"><img src="foto2.jpg"></div>
-            <div class="img-box"><img src="foto3.jpg"></div>
-            <div class="img-box"><img src="foto4.jpg"></div>
-            <div class="img-box"><img src="foto5.jpg"></div>
-            <div class="img-box"><img src="foto6.jpg"></div>
+            <div class="img-box"><img src="foto1.jpg" alt="Unikey Work"></div>
+            <div class="img-box"><img src="foto2.jpg" alt="Unikey Work"></div>
+            <div class="img-box"><img src="foto3.jpg" alt="Unikey Work"></div>
+            <div class="img-box"><img src="foto4.jpg" alt="Unikey Work"></div>
+            <div class="img-box"><img src="foto5.jpg" alt="Unikey Work"></div>
+            <div class="img-box"><img src="foto6.jpg" alt="Unikey Work"></div>
         </div>
 
         <div class="rating-container">
@@ -264,7 +252,6 @@
     </div>
 
     <script>
-        // --- LOGO BACKGROUND ANIMATION ---
         const brands = ['LAMBORGHINI', 'FERRARI', 'PORSCHE', 'BMW', 'AUDI', 'MERCEDES', 'TOYOTA', 'VW', 'CADILLAC'];
         const canvas = document.getElementById('bg-canvas');
 
@@ -272,36 +259,23 @@
             const logo = document.createElement('div');
             logo.className = 'floating-logo';
             logo.innerText = brands[Math.floor(Math.random() * brands.length)];
-            
-            const startPos = Math.random() * 100;
-            logo.style.left = startPos + 'vw';
+            logo.style.left = Math.random() * 100 + 'vw';
             logo.style.top = '110vh';
-            
-            // Shpejtesia fillestare (3 sekondat e para te jete e shpejte)
             const duration = 15 + Math.random() * 10; 
             logo.style.transition = `transform ${duration}s linear, opacity 2s`;
-            
             canvas.appendChild(logo);
-
-            // Animacioni i levizjes
             setTimeout(() => {
                 logo.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
             }, 100);
-
-            // Pastrimi
             setTimeout(() => { logo.remove(); }, duration * 1000);
         }
-
-        // Gjenero logo vazhdimisht
         setInterval(createFloatingLogo, 1500);
 
-        // --- TRANSLATE LOGIC ---
         let isEn = false;
         function toggleLanguage() {
             const items = document.querySelectorAll('#content-list li');
             const btn = document.querySelector('.btn-translate');
             const rateH2 = document.getElementById('rate-title');
-            
             isEn = !isEn;
             items.forEach(li => {
                 li.innerText = isEn ? li.getAttribute('data-en') : li.getAttribute('data-sq');
@@ -310,16 +284,13 @@
             rateH2.innerText = isEn ? "RATE OUR WORK" : "VLERSONI PUNEN TONË";
         }
 
-        // --- RATING LOGIC ---
         function setRating(n) {
             const stars = document.querySelectorAll('.star');
-            stars.forEach((s, i) => {
-                s.classList.toggle('active', i < n);
-            });
+            stars.forEach((s, i) => { s.classList.toggle('active', i < n); });
         }
 
         function sendFeedback() {
-            alert("Faleminderit Muhamet! Komenti u dërgua me sukses.");
+            alert("Faleminderit! Vlerësimi u dërgua.");
             document.getElementById('feedback').value = "";
         }
     </script>
