@@ -3,286 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNIKEY - Specialist për Celsa Makinash</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>UNIKEY - Professional Auto Locksmith</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #d4af37;
-            --dark: #0a0a0a;
-            --glass: rgba(255, 255, 255, 0.1);
+            --gold: #FFD700;
+            --dark-bg: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border-glass: rgba(255, 255, 255, 0.1);
         }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--dark);
-            color: white;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: #fff;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            min-height: 100vh;
         }
 
-        /* Background Animacion 3D me Logo Makinash */
-        #bg-animation {
+        /* BACKGROUND ME LOGO QË LËVIZIN */
+        #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle, #1a1a1a 0%, #000 100%);
-            overflow: hidden;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
         }
 
-        .car-logo {
+        .floating-logo {
             position: absolute;
-            font-size: 1.5rem;
-            color: rgba(212, 175, 55, 0.2);
+            font-family: 'Orbitron', sans-serif;
             font-weight: bold;
+            color: rgba(255, 215, 0, 0.1);
+            pointer-events: none;
             white-space: nowrap;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            pointer-events: none;
         }
 
-        /* Header & Translate */
-        .top-bar {
+        .header-nav {
             display: flex;
             justify-content: flex-end;
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 25px 5%;
         }
 
         .btn-translate {
-            background: var(--gold);
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: 0.3s;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-
-        .btn-translate:hover { transform: scale(1.05); }
-
-        /* Titulli Luxury */
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        h1.luxury-title {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(3rem, 10vw, 6rem);
+            background: transparent;
             color: var(--gold);
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
-            margin-bottom: 20px;
-            letter-spacing: 10px;
+            border: 1px solid var(--gold);
+            padding: 10px 25px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: 0.4s;
+            letter-spacing: 2px;
         }
 
-        /* Nentitujt */
-        .info-list {
-            list-style: none;
+        .btn-translate:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        .main-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .luxury-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: #fff;
+            letter-spacing: 15px;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, #fff 40%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .info-card {
+            background: var(--glass);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(15px);
             padding: 40px;
             text-align: left;
-            display: inline-block;
-            background: var(--glass);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
             margin-bottom: 50px;
+            border-left: 5px solid var(--gold);
         }
 
+        .info-list { list-style: none; }
         .info-list li {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 20px;
             display: flex;
-            align-items: center;
-            line-height: 1.5;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 10px;
         }
 
         .info-list li::before {
-            content: '🔑';
+            content: '>';
+            color: var(--gold);
             margin-right: 15px;
-            filter: drop-shadow(0 0 5px var(--gold));
+            font-weight: bold;
         }
 
-        /* Galeria e Fotove - RREGULLIMI I RI */
-        .gallery {
+        /* SEKSIONI I FOTOOVE */
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
         }
 
         .img-box {
-            width: 100%;
             height: 400px;
-            border-radius: 15px;
+            background: #111;
+            border: 1px solid var(--gold);
             overflow: hidden;
-            border: 2px solid rgba(212, 175, 55, 0.2);
-            background: #1a1a1a; /* Ngjyra nese foto nuk kthehet */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
         }
 
         .img-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.5s ease;
+            transition: 0.6s ease;
         }
 
         .img-box:hover img {
             transform: scale(1.1);
-            filter: brightness(1.2);
         }
 
-        /* Vleresimi me Yje */
-        .rating-section {
-            margin-top: 80px;
-            background: var(--glass);
+        /* RATING */
+        .rating-container {
+            background: #0a0a0a;
+            border: 1px solid var(--gold);
             padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        .stars {
-            font-size: 2.5rem;
-            color: #333;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-
+        .star { cursor: pointer; font-size: 2.5rem; color: #222; }
         .star.active { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
         textarea {
             width: 100%;
-            height: 120px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            border: 1px solid var(--gold);
             padding: 15px;
-            border-radius: 10px;
-            font-family: inherit;
+            background: transparent;
+            border: 1px solid var(--border-glass);
+            color: white;
+            margin-top: 20px;
         }
 
         .btn-submit {
-            margin-top: 20px;
             background: var(--gold);
             border: none;
-            padding: 12px 40px;
+            padding: 15px 40px;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 5px;
-            text-transform: uppercase;
+            font-family: 'Orbitron';
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div id="bg-animation"></div>
+    <div id="bg-canvas"></div>
 
-    <div class="top-bar">
+    <nav class="header-nav">
         <button class="btn-translate" onclick="toggleLanguage()">Translate to English</button>
-    </div>
+    </nav>
 
-    <div class="container">
+    <div class="main-wrapper">
         <h1 class="luxury-title">UNIKEY</h1>
         
-        <ul class="info-list" id="content-list">
-            <li data-sq="Kemi 17 vite qe meremi me kete profesion." data-en="We have 17 years of experience in this profession.">Kemi 17 vite qe meremi me kete profesion.</li>
-            <li data-sq="Punojm 6 ditet e javes nga e Hena deri ne dIten e Shtune , nga ora 9:30 deri ne ora 19:00." data-en="Working 6 days a week, Monday to Saturday, 9:30 AM to 7:00 PM.">Punojm 6 ditet e javes nga e Hena deri ne dIten e Shtune , nga ora 9:30 deri ne ora 19:00.</li>
-            <li data-sq="Riparojm Dyer te makinave ( Brava ), Mehanizma te dritareve te Makinave, Qelsa duplikat te makinave kodime , celsa te shtepive, Diagnostik dhe shum gjera te tjera." data-en="We repair car door locks, window mechanisms, duplicate keys, coding, house keys, and diagnostics.">Riparojm Dyer te makinave ( Brava ), Mehanizma te dritareve te Makinave, Qelsa duplikat te makinave kodime , celsa te shtepive, Diagnostik dhe shum gjera te tjera.</li>
-            <li data-sq="Me lokacion ndodhemi ne Maqedoni, Komuna Gjorce Petrov, Me lokacion mundeni te na gjeni duke kerkuar vetem ( UNIKKEY - Gjorce Petrov )." data-en="Location: Gjorce Petrov, Macedonia. Search for 'UNIKKEY - Gjorce Petrov' to find us.">Me lokacion ndodhemi ne Maqedoni, Komuna Gjorce Petrov, Me lokacion mundeni te na gjeni duke kerkuar vetem ( UNIKKEY - Gjorce Petrov ).</li>
-            <li data-sq="Kontaktoni ne kete numer: Muhamet Musliu - + 389 070 229 348" data-en="Contact us: Muhamet Musliu - + 389 070 229 348">Kontaktoni ne kete numer: Muhamet Musliu - + 389 070 229 348</li>
-        </ul>
-
-        <div class="gallery">
-            <!-- KETU JANE FOTOT: Ndrysho vetem emrin nese i ke ndryshe ne GitHub -->
-            <div class="img-box"><img src="foto1.jpg" alt="Unikey Service" onerror="this.src='https://via.placeholder.com/400x600/1a1a1a/d4af37?text=Foto+1'"></div>
-            <div class="img-box"><img src="foto2.jpg" alt="Unikey Service" onerror="this.src='https://via.placeholder.com/400x600/1a1a1a/d4af37?text=Foto+2'"></div>
-            <div class="img-box"><img src="foto3.jpg" alt="Unikey Service" onerror="this.src='https://via.placeholder.com/400x600/1a1a1a/d4af37?text=Foto+3'"></div>
-            <div class="img-box"><img src="foto4.jpg" alt="Unikey Service" onerror="this.src='https://via.placeholder.com/400x600/1a1a1a/d4af37?text=Foto+4'"></div>
-            <div class="img-box"><img src="foto5.jpg" alt="Unikey Service" onerror="this.src='https://via.placeholder.com/400x600/1a1a1a/d4af37?text=Foto+5'"></div>
-            <div class="img-box"><img src="foto6.jpg" alt="Unikey Service" onerror="this.src='https://via.placeholder.com/400x600/1a1a1a/d4af37?text=Foto+6'"></div>
+        <div class="info-card">
+            <ul class="info-list" id="content-list">
+                <li data-sq="Kemi 17 vite qe meremi me kete profesion." data-en="17 years of professional experience in this field.">Kemi 17 vite qe meremi me kete profesion.</li>
+                <li data-sq="Punojm 6 ditet e javes (E Hënë - E Shtunë), 09:30 - 19:00." data-en="Open 6 days a week (Mon - Sat), 09:30 - 19:00.">Punojm 6 ditet e javes (E Hënë - E Shtunë), 09:30 - 19:00.</li>
+                <li data-sq="Riparojm Brava makinash, Mekanizma dritaresh, Qelsa duplikat, Kodime, Diagnostikë." data-en="Car locks, window mechanisms, duplicate keys, coding, and diagnostics.">Riparojm Brava makinash, Mekanizma dritaresh, Qelsa duplikat, Kodime, Diagnostikë.</li>
+                <li data-sq="Lokacioni: Gjorce Petrov, Maqedoni (UNIKKEY - Gjorce Petrov)." data-en="Location: Gjorce Petrov, Macedonia (Search: UNIKKEY - Gjorce Petrov).">Lokacioni: Gjorce Petrov, Maqedoni (UNIKKEY - Gjorce Petrov).</li>
+                <li data-sq="Muhamet Musliu - + 389 070 229 348" data-en="Contact: Muhamet Musliu - + 389 070 229 348">Muhamet Musliu - + 389 070 229 348</li>
+            </ul>
         </div>
 
-        <div class="rating-section">
-            <h2 id="rate-title" style="color:var(--gold); margin-bottom:10px;">VLERËSONI PUNËN TONË</h2>
+        <div class="gallery-grid">
+            <div class="img-box"><img src="foto1.jpg" alt="Unikey Work 1"></div>
+            <div class="img-box"><img src="foto2.jpg" alt="Unikey Work 2"></div>
+            <div class="img-box"><img src="foto3.jpg" alt="Unikey Work 3"></div>
+            <div class="img-box"><img src="foto4.jpg" alt="Unikey Work 4"></div>
+            <div class="img-box"><img src="foto5.jpg" alt="Unikey Work 5"></div>
+            <div class="img-box"><img src="foto6.jpg" alt="Unikey Work 6"></div>
+        </div>
+
+        <div class="rating-container">
+            <h2 id="rate-title" style="font-family:'Orbitron'">VLERSONI PUNEN TONË</h2>
             <div class="stars">
-                <span class="star" onclick="setRate(1)">★</span>
-                <span class="star" onclick="setRate(2)">★</span>
-                <span class="star" onclick="setRate(3)">★</span>
-                <span class="star" onclick="setRate(4)">★</span>
-                <span class="star" onclick="setRate(5)">★</span>
+                <span class="star" onclick="setStar(1)">★</span>
+                <span class="star" onclick="setStar(2)">★</span>
+                <span class="star" onclick="setStar(3)">★</span>
+                <span class="star" onclick="setStar(4)">★</span>
+                <span class="star" onclick="setStar(5)">★</span>
             </div>
-            <textarea id="comment-box" placeholder="Shkruani mendimin tuaj këtu..."></textarea>
-            <br>
-            <button class="btn-submit" onclick="submitReview()">Dërgo Vlerësimin</button>
+            <textarea id="feedback" placeholder="Shkruani mendimin tuaj këtu..."></textarea>
+            <button class="btn-submit" onclick="alert('Faleminderit!')">DËRGO KOMENTIN</button>
         </div>
     </div>
 
     <script>
-        // Animacioni i Backgroundit me shpejtesi te ndryshueshme
-        const bg = document.getElementById('bg-animation');
-        const logos = ['LAMBORGHINI', 'FERRARI', 'PORSCHE', 'BMW', 'AUDI', 'MERCEDES', 'TOYOTA', 'VW', 'CADILLAC'];
-        
+        // Animacioni i Background-it
+        const brands = ['LAMBORGHINI', 'FERRARI', 'PORSCHE', 'BMW', 'AUDI', 'MERCEDES', 'TOYOTA', 'VW', 'CADILLAC'];
+        const canvas = document.getElementById('bg-canvas');
+
         function createLogo() {
-            const el = document.createElement('div');
-            el.className = 'car-logo';
-            el.innerText = logos[Math.floor(Math.random() * logos.length)];
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.top = '110vh';
-            
-            // Shpejtesia: 3 sekonda ne fillim, pastaj ngadalësohet
-            const duration = 15 + Math.random() * 10;
-            el.style.transition = `transform ${duration}s linear, opacity 2s`;
-            
-            bg.appendChild(el);
-
-            setTimeout(() => {
-                el.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
-            }, 100);
-
-            setTimeout(() => { el.remove(); }, duration * 1000);
+            const logo = document.createElement('div');
+            logo.className = 'floating-logo';
+            logo.innerText = brands[Math.floor(Math.random() * brands.length)];
+            logo.style.left = Math.random() * 100 + 'vw';
+            logo.style.top = '110vh';
+            const duration = 12 + Math.random() * 10;
+            logo.style.transition = `transform ${duration}s linear, opacity 1s`;
+            canvas.appendChild(logo);
+            setTimeout(() => { logo.style.transform = `translateY(-120vh) rotate(360deg)`; }, 100);
+            setTimeout(() => { logo.remove(); }, duration * 1000);
         }
+        setInterval(createLogo, 1800);
 
-        setInterval(createLogo, 1500);
-
-        // Funksioni Translate
+        // Translate
         let isEn = false;
         function toggleLanguage() {
             isEn = !isEn;
-            const list = document.querySelectorAll('#content-list li');
-            const btn = document.querySelector('.btn-translate');
-            const rTitle = document.getElementById('rate-title');
-
-            list.forEach(li => {
+            document.querySelectorAll('#content-list li').forEach(li => {
                 li.innerText = isEn ? li.getAttribute('data-en') : li.getAttribute('data-sq');
             });
-            btn.innerText = isEn ? "Kthe ne Shqip" : "Translate to English";
-            rTitle.innerText = isEn ? "RATE OUR WORK" : "VLERËSONI PUNËN TONË";
+            document.querySelector('.btn-translate').innerText = isEn ? "Kthe ne Shqip" : "Translate to English";
         }
 
-        // Sistemi i yjeve
-        function setRate(n) {
-            const stars = document.querySelectorAll('.star');
-            stars.forEach((s, i) => {
+        // Stars
+        function setStar(n) {
+            document.querySelectorAll('.star').forEach((s, i) => {
                 s.classList.toggle('active', i < n);
             });
-        }
-
-        function submitReview() {
-            alert("Faleminderit Muhamet! Vlerësimi u dërgua me sukses.");
-            document.getElementById('comment-box').value = "";
         }
     </script>
 </body>
