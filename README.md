@@ -6,7 +6,7 @@
     <title>UNIKEY - Specialist për Çelësa makinash</title>
     <style>
         /* --- STILI GLOBAL 'DARK TECH' --- */
-        :root {
+       
             --bg-dark: #06090f; 
             --bg-panel: #0d1117; 
             --accent-blue: #007bff; 
@@ -303,7 +303,7 @@
     <footer id="kontakt">
         <div class="footer-logo">UNI<span>KEY</span></div>
         <div class="contact-card">
-            <div class="contact-name">Muhamed Musili</div>
+            <div class="contact-name">Muhamed Musli</div>
             <div class="contact-phone"><a href="tel:+389070229348">+389 070 229 348</a></div>
         </div>
         <div class="copyright">
