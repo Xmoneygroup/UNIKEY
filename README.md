@@ -24,7 +24,7 @@
             min-height: 100vh;
         }
 
-        /* 3D ANIMATED BACKGROUND */
+        /* NEON FALLING KEYS BACKGROUND */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -32,36 +32,26 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+            background: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000 100%);
+            overflow: hidden;
         }
 
-        .particle {
+        .falling-key {
             position: absolute;
-            background: var(--gold);
-            border-radius: 50%;
+            color: var(--gold);
+            font-size: 25px;
+            filter: drop-shadow(0 0 8px var(--gold));
+            user-select: none;
             pointer-events: none;
-            opacity: 0.5;
-            filter: blur(1px);
-            animation: float 20s infinite linear;
+            opacity: 0.6;
+            animation: fallAndRotate linear forwards;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) translateX(50px) rotate(360deg); opacity: 0; }
-        }
-
-        .floating-logo {
-            position: absolute;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            color: rgba(255, 215, 0, 0.03);
-            pointer-events: none;
-            white-space: nowrap;
-            text-transform: uppercase;
-            font-size: 5vw;
-            z-index: -1;
+        @keyframes fallAndRotate {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
         .header-nav {
@@ -91,7 +81,7 @@
         }
 
         .main-wrapper {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
             text-align: center;
@@ -125,7 +115,6 @@
             margin-bottom: 50px;
             border-left: 5px solid var(--gold);
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform: perspective(1000px) rotateX(2deg);
         }
 
         .info-list { list-style: none; }
@@ -136,12 +125,6 @@
             align-items: flex-start;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             padding-bottom: 12px;
-            transition: 0.3s;
-        }
-        
-        .info-list li:hover {
-            color: var(--gold);
-            transform: translateX(10px);
         }
 
         .info-list li::before {
@@ -151,21 +134,27 @@
             text-shadow: 0 0 10px var(--gold);
         }
 
+        /* RENDITJA 3 ME 3 */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px;
             margin-bottom: 60px;
         }
 
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .img-box {
-            height: 450px;
+            height: 350px;
             background: #000;
             border: 1px solid var(--border-glass);
             overflow: hidden;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            border-radius: 2px;
         }
 
         .img-box img {
@@ -173,24 +162,12 @@
             height: 100%;
             object-fit: cover;
             transition: 1.2s cubic-bezier(0.2, 1, 0.3, 1);
-            filter: grayscale(30%);
-        }
-
-        .img-box::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 40%);
+            filter: grayscale(20%);
         }
 
         .img-box:hover img {
             transform: scale(1.1);
             filter: grayscale(0%);
-        }
-
-        .img-box:hover {
-            border-color: var(--gold);
-            box-shadow: 0 0 30px var(--gold-glow);
         }
 
         .rating-container {
@@ -226,12 +203,6 @@
             margin-top: 30px;
             letter-spacing: 3px;
             color: #000;
-            transition: 0.4s;
-        }
-
-        .btn-submit:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px var(--gold-glow);
         }
     </style>
 </head>
@@ -283,53 +254,32 @@
 </div>
 
 <script>
-const brands = ['BMW','MERCEDES','AUDI','PORSCHE','VW','LAND ROVER','JAGUAR'];
 const canvas = document.getElementById('bg-canvas');
+const keyIcons = ['🔑', '🗝️', '🏠', '🔓'];
 
-// KRIJIMI I GRIMCAVE 3D (PARTICLES)
-function createParticle() {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random() * 4 + 'px';
-    p.style.width = size;
-    p.style.height = size;
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.top = '100vh';
-    p.style.animationDuration = (Math.random() * 10 + 10) + 's';
-    canvas.appendChild(p);
-    setTimeout(() => p.remove(), 20000);
-}
-setInterval(createParticle, 300);
-
-// LOGOT QE LEVIZIN NE BEJGROUND
-function createFloatingLogo() {
-    const logo = document.createElement('div');
-    logo.className = 'floating-logo';
-    logo.innerText = brands[Math.floor(Math.random() * brands.length)];
-    logo.style.left = Math.random() * 80 + 'vw';
-    logo.style.top = Math.random() * 80 + 'vh';
-    logo.style.opacity = '0';
-    logo.style.transition = 'opacity 3s, transform 10s linear';
-    canvas.appendChild(logo);
+// ANIMACIONI I CELsave QE BIEN
+function createFallingKey() {
+    const key = document.createElement('div');
+    key.className = 'falling-key';
+    key.innerText = keyIcons[Math.floor(Math.random() * keyIcons.length)];
+    
+    const startX = Math.random() * 100;
+    const duration = Math.random() * 5 + 7; // 7-12 sekonda (avash)
+    const size = Math.random() * 15 + 20; // 20-35px
+    
+    key.style.left = startX + 'vw';
+    key.style.fontSize = size + 'px';
+    key.style.animationDuration = duration + 's';
+    
+    canvas.appendChild(key);
     
     setTimeout(() => {
-        logo.style.opacity = '0.05';
-        logo.style.transform = 'scale(1.5) translate(50px, -50px)';
-    }, 100);
-
-    setTimeout(() => {
-        logo.style.opacity = '0';
-        setTimeout(() => logo.remove(), 3000);
-    }, 8000);
+        key.remove();
+    }, duration * 1000);
 }
-setInterval(createFloatingLogo, 4000);
 
-// NDJEKJA E MAUSIT PER DRITE
-document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth) * 100;
-    const y = (e.clientY / window.innerHeight) * 100;
-    canvas.style.background = `radial-gradient(circle at ${x}% ${y}%, #1a1500 0%, #000 60%)`;
-});
+// Krijo nje celes cdo 600ms
+setInterval(createFallingKey, 600);
 
 let isEn = false;
 function toggleLanguage() {
