@@ -88,23 +88,52 @@
             position: relative;
         }
 
+        /* NEW LUXURY KEY TITLE STYLING */
         .luxury-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3.5rem, 12vw, 7rem);
-            color: #fff;
-            letter-spacing: 15px;
-            margin-bottom: 40px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            background: linear-gradient(to bottom, #fff 30%, var(--gold) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleGlow 3s infinite alternate;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            perspective: 1000px;
+            margin-bottom: 50px;
         }
 
-        @keyframes titleGlow {
-            from { filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
-            to { filter: drop-shadow(0 0 20px var(--gold-glow)); }
+        .key-letter {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 6.5rem);
+            color: var(--gold);
+            position: relative;
+            animation: letterReveal 1s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+            opacity: 0;
+            transform: rotateY(-90deg);
+            text-shadow: 0 0 15px var(--gold-glow);
         }
+
+        /* Çelësi poshtë shkronjës */
+        .key-letter::after {
+            content: '🗝️';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.4);
+            font-size: 2rem;
+            filter: drop-shadow(0 0 5px var(--gold));
+            opacity: 0.7;
+        }
+
+        /* Animacioni i hyrjes */
+        @keyframes letterReveal {
+            0% { opacity: 0; transform: rotateY(-90deg) scale(0.5); filter: brightness(5); }
+            100% { opacity: 1; transform: rotateY(0deg) scale(1); filter: brightness(1); }
+        }
+
+        /* Vonesat për çdo shkronjë */
+        .key-letter:nth-child(1) { animation-delay: 0.1s; }
+        .key-letter:nth-child(2) { animation-delay: 0.3s; }
+        .key-letter:nth-child(3) { animation-delay: 0.5s; }
+        .key-letter:nth-child(4) { animation-delay: 0.7s; }
+        .key-letter:nth-child(5) { animation-delay: 0.9s; }
+        .key-letter:nth-child(6) { animation-delay: 1.1s; }
 
         .info-card {
             background: var(--glass);
@@ -134,7 +163,6 @@
             text-shadow: 0 0 10px var(--gold);
         }
 
-        /* RENDITJA 3 ME 3 */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
@@ -146,6 +174,7 @@
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
+            .key-letter { font-size: 3.5rem; }
         }
 
         .img-box {
@@ -215,7 +244,15 @@
 </nav>
 
 <div class="main-wrapper">
-    <h1 class="luxury-title">UNIKEY</h1>
+    <!-- TITULLI I RI ME ANIMACION DHE FORME CELSI -->
+    <div class="luxury-title">
+        <span class="key-letter">U</span>
+        <span class="key-letter">N</span>
+        <span class="key-letter">I</span>
+        <span class="key-letter">K</span>
+        <span class="key-letter">E</span>
+        <span class="key-letter">Y</span>
+    </div>
 
     <div class="info-card">
         <ul class="info-list" id="content-list">
@@ -257,15 +294,14 @@
 const canvas = document.getElementById('bg-canvas');
 const keyIcons = ['🔑', '🗝️', '🏠', '🔓'];
 
-// ANIMACIONI I CELsave QE BIEN
 function createFallingKey() {
     const key = document.createElement('div');
     key.className = 'falling-key';
     key.innerText = keyIcons[Math.floor(Math.random() * keyIcons.length)];
     
     const startX = Math.random() * 100;
-    const duration = Math.random() * 5 + 7; // 7-12 sekonda (avash)
-    const size = Math.random() * 15 + 20; // 20-35px
+    const duration = Math.random() * 5 + 7;
+    const size = Math.random() * 15 + 20;
     
     key.style.left = startX + 'vw';
     key.style.fontSize = size + 'px';
@@ -278,7 +314,6 @@ function createFallingKey() {
     }, duration * 1000);
 }
 
-// Krijo nje celes cdo 600ms
 setInterval(createFallingKey, 600);
 
 let isEn = false;
