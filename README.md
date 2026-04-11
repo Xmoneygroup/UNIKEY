@@ -1,90 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>XStore</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
-    body {background:#0d0d0d; color:#fff;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XStore Neon</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
 
-    header {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:20px 50px; position:absolute; width:100%; z-index:10;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif;}
 
-    .logo {font-size:28px; font-weight:700;}
-    .logo span {color:#ff3c00;}
+body{
+  background:#050505;
+  color:#fff;
+  overflow-x:hidden;
+}
 
-    nav a {
-      margin:0 15px; text-decoration:none; color:#ccc; font-size:14px;
-      transition:0.3s;
-    }
-    nav a:hover {color:#fff;}
+/* Neon background */
+body::before{
+  content:"";
+  position:fixed;
+  width:100%;height:100%;
+  background:radial-gradient(circle at 20% 30%, #ff3c0033, transparent 40%),
+             radial-gradient(circle at 80% 70%, #ff000033, transparent 40%),
+             radial-gradient(circle at 50% 50%, #ff3c0011, transparent 60%);
+  z-index:-1;
+}
 
-    .btn {
-      border:1px solid #ff3c00; padding:8px 18px; border-radius:8px;
-      color:#fff; text-decoration:none; transition:0.3s;
-    }
-    .btn:hover {background:#ff3c00;}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 50px;
+}
 
-    .hero {
-      height:100vh;
-      background:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70') no-repeat center/cover;
-      display:flex; align-items:center; justify-content:center;
-      text-align:center; position:relative;
-    }
+.logo{
+  font-size:30px;
+  font-weight:800;
+  color:#fff;
+}
+.logo span{
+  color:#ff3c00;
+  text-shadow:0 0 10px #ff3c00, 0 0 20px #ff3c00;
+}
 
-    .overlay {
-      position:absolute; width:100%; height:100%; background:rgba(0,0,0,0.7);
-      top:0; left:0;
-    }
+nav a{
+  margin:0 15px;
+  text-decoration:none;
+  color:#aaa;
+  transition:.3s;
+}
 
-    .hero-content {position:relative; z-index:2;}
+nav a:hover{
+  color:#fff;
+  text-shadow:0 0 10px #ff3c00;
+}
 
-    .hero h1 {
-      font-size:60px; letter-spacing:2px;
-    }
-    .hero h1 span {color:#ff3c00;}
+.btn{
+  border:1px solid #ff3c00;
+  padding:10px 20px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#fff;
+  transition:.3s;
+}
 
-    .hero p {margin:20px 0; color:#aaa;}
+.btn:hover{
+  background:#ff3c00;
+  box-shadow:0 0 15px #ff3c00;
+}
 
-    .cta {
-      padding:15px 35px; border:none; background:#ff3c00;
-      color:#fff; border-radius:30px; font-size:16px;
-      cursor:pointer; transition:0.3s;
-    }
-    .cta:hover {background:#ff1e00;}
+.hero{
+  height:90vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
 
-    .stats {
-      position:absolute; left:30px; top:150px;
-      background:rgba(0,0,0,0.6);
-      padding:20px; border-radius:10px;
-    }
-    .stats div {margin:10px 0;}
+.hero h1{
+  font-size:80px;
+}
 
-    .section {
-      padding:80px 50px; text-align:center;
-    }
+.hero h1 span{
+  color:#ff3c00;
+  text-shadow:0 0 20px #ff3c00,0 0 40px #ff0000;
+}
 
-    .cards {
-      display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px;
-      margin-top:40px;
-    }
+.hero p{
+  margin-top:20px;
+  color:#bbb;
+}
 
-    .card {
-      background:#1a1a1a; padding:20px; border-radius:15px;
-      transition:0.3s;
-    }
-    .card:hover {transform:translateY(-10px);}
+.cta{
+  margin-top:40px;
+  padding:15px 40px;
+  border:none;
+  background:transparent;
+  color:#fff;
+  border:2px solid #ff3c00;
+  border-radius:30px;
+  cursor:pointer;
+  font-size:16px;
+  transition:.3s;
+}
 
-    footer {
-      text-align:center; padding:30px; background:#111;
-      color:#777;
-    }
-  </style>
+.cta:hover{
+  background:#ff3c00;
+  box-shadow:0 0 20px #ff3c00,0 0 40px #ff0000;
+}
+
+.stats{
+  position:absolute;
+  left:40px;
+  top:150px;
+  border:1px solid #ff3c00;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 0 15px #ff3c00;
+}
+
+.stats div{
+  margin:10px 0;
+}
+
+.section{
+  padding:80px 50px;
+  text-align:center;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  margin-top:40px;
+}
+
+.card{
+  background:#0d0d0d;
+  border:1px solid #ff3c00;
+  padding:30px;
+  border-radius:15px;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 20px #ff3c00;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#777;
+}
+
+</style>
 </head>
+
 <body>
 
 <header>
@@ -101,17 +174,15 @@
 </header>
 
 <section class="hero">
-  <div class="overlay"></div>
   <div class="stats">
     <div>10,000+ Sales</div>
     <div>25,000+ Customers</div>
     <div>20 Years Experience</div>
   </div>
-  <div class="hero-content">
-    <h1><span>X</span>STORE</h1>
-    <p>Elevate Your Drive</p>
-    <button class="cta">JOIN IN STORE</button>
-  </div>
+
+  <h1><span>X</span>STORE</h1>
+  <p>Elevate Your Drive</p>
+  <button class="cta">JOIN IN STORE</button>
 </section>
 
 <section class="section">
@@ -124,7 +195,7 @@
 </section>
 
 <footer>
-  <p>© 2026 XStore. All rights reserved.</p>
+  <p>© 2026 XStore Neon Edition</p>
 </footer>
 
 </body>
