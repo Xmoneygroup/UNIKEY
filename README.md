@@ -6,10 +6,8 @@
     <title>Elite Domain Sales | Locarox.com</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        /* FONTET ORIGJINALE */
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@300;400;600&display=swap');
 
-        /* BEJGRAUNDI DHE STRUKTURA (NUK PREKEN) */
         body, html {
             margin: 0;
             padding: 0;
@@ -29,7 +27,6 @@
             z-index: 1;
         }
 
-        /* CONTAINER KRYESOR */
         .main-wrapper {
             position: relative;
             z-index: 10;
@@ -37,151 +34,144 @@
             height: 100vh;
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
+            justify-content: space-between; /* Hapësirë maksimale mes elementeve */
             align-items: center;
-            padding: 50px;
+            padding: 0 8%; /* Hapsirë anash */
             box-sizing: border-box;
             pointer-events: none;
         }
 
-        /* 1. PLLAKATA E BARDHË (STILI GODADDY) */
+        /* 1. PLLAKATA E BARDHË */
         .glass-card {
             background: #ffffff;
-            width: 380px;
-            padding: 40px;
-            border-radius: 20px; /* Kthesa si në imazh */
+            width: 440px; /* Zgjeruar për radhitje më të mirë */
+            padding: 45px;
+            border-radius: 24px;
             text-align: left;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
             pointer-events: auto;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .glass-card h2 {
             color: #000;
-            font-size: 1.6rem;
-            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+            margin: 0 0 15px 0;
             font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: none; /* Jo uppercase */
-            letter-spacing: normal;
         }
 
         .glass-card .domain-line {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            gap: 10px;
         }
 
         .glass-card .domain-name {
-            color: #000;
+            color: #333;
             font-weight: 400;
             font-size: 1.1rem;
             margin: 0;
+            white-space: nowrap; /* Ndalon thyerjen e fjalisë */
         }
 
         .glass-card .price {
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: #117aca; /* Blu si në imazh */
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #117aca;
             margin: 0;
+            white-space: nowrap;
         }
 
-        /* BUTONI NEXT INTERAKTIV */
         .next-btn {
             display: block;
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background: #111;
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-            border-radius: 6px;
+            border-radius: 12px;
             transition: all 0.3s ease;
-            text-transform: none;
-            letter-spacing: normal;
             border: none;
             cursor: pointer;
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .next-btn:hover {
-            background: #2ecc71; /* E gjelbër e lehtë kur afron mausin */
+            background: #2ecc71;
+            transform: scale(1.02);
         }
 
         .contact-info {
-            color: #000;
-            font-size: 1rem;
+            color: #555;
+            font-size: 0.95rem;
             margin-top: 35px;
             text-align: center;
-            font-weight: 600;
         }
 
         .phone-link {
             color: #117aca;
             text-decoration: none;
-            font-size: 1.4rem;
-            font-weight: 400;
+            font-size: 1.5rem;
+            font-weight: 500;
             display: block;
-            margin-top: 5px;
+            margin-top: 8px;
         }
 
-        /* 2. TEKSTI JASHTË PLLAKATËS (DJATHAS) */
+        /* 2. TEKSTI JASHTË (DJATHAS) */
         .info-panel {
-            text-align: left;
+            text-align: right; /* Zhvendosur djathtas */
             color: #fff;
-            max-width: 500px;
+            margin-right: 5%;
         }
 
         .info-domain {
             font-family: 'Syncopate', sans-serif;
-            font-size: 3.5rem;
-            margin: 0 0 10px 0;
-            letter-spacing: -2px;
+            font-size: 4rem; /* Pak më i madh dhe i qartë */
+            margin: 0;
+            letter-spacing: 2px;
             text-transform: lowercase;
+            text-shadow: 0 0 30px rgba(255,255,255,0.2);
         }
 
         .info-status {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 300;
-            opacity: 0.9;
-            margin-bottom: 40px;
+            opacity: 0.8;
+            margin-top: 5px;
+            margin-bottom: 50px;
         }
 
-        /* IKONAT E BESIMIT */
-        .trust-grid {
+        /* 3 OPSIONET POSHTË SUPPORT */
+        .trust-list {
             display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            margin-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 30px;
+            flex-direction: column;
+            gap: 25px; /* Hapësirë mes opsioneve */
+            align-items: flex-end;
         }
 
         .trust-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.7);
+            gap: 15px;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
         }
 
         .trust-item span {
-            font-size: 1.2rem;
-            color: #fff;
+            font-size: 1.5rem;
+            color: #2ecc71; /* I gjelbër që të përshtatet me butonin */
         }
 
-        @media (max-width: 900px) {
-            .main-wrapper { 
-                flex-direction: column; 
-                padding: 30px;
-                justify-content: center;
-            }
-            .glass-card { margin-bottom: 50px; width: 90%; max-width: 380px;}
-            .info-panel { text-align: center; }
-            .info-domain { font-size: 2.2rem; }
-            .trust-grid { flex-wrap: wrap; justify-content: center; }
+        @media (max-width: 1100px) {
+            .main-wrapper { flex-direction: column; padding: 40px; }
+            .info-panel { text-align: center; margin-right: 0; margin-top: 50px; }
+            .trust-list { align-items: center; }
+            .glass-card { width: 90%; max-width: 440px; }
         }
     </style>
 </head>
@@ -197,7 +187,7 @@
                 <p class="price">2,390.00 USD</p>
             </div>
             
-            <a href="KËTU_VENDOS_LINKUN_E_PAGESËS" class="next-btn">Next</a>
+            <a href="VENDO_LINKUN_TËND" class="next-btn">Next</a>
             
             <div class="contact-info">
                 Need help? Give us a call<br>
@@ -209,30 +199,29 @@
             <div class="info-domain">locarox.com</div>
             <div class="info-status">is for sale!</div>
             
-            <div class="trust-grid">
+            <div class="trust-list">
                 <div class="trust-item">
-                    <span class="material-icons">shopping_cart</span>
                     Simple, secure purchase & transfer
+                    <span class="material-icons">verified_user</span>
                 </div>
                 <div class="trust-item">
-                    <span class="material-icons">check_circle</span>
                     Trusted by customers globally
+                    <span class="material-icons">public</span>
                 </div>
                 <div class="trust-item">
-                    <span class="material-icons">favorite</span>
                     24/7 dedicated support
+                    <span class="material-icons">support_agent</span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // --- SKRIPTI I FISHEKZJARRËVE (I NJËJTI, PA PREKUR ASGJË) ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -245,10 +234,7 @@
                 this.targetY = Math.random() * (canvas.height * 0.7) + 50;
                 this.speed = 3 + Math.random() * 3;
                 this.angle = -Math.PI / 2 + (Math.random() * 0.4 - 0.2);
-                this.velocity = {
-                    x: Math.cos(this.angle) * this.speed,
-                    y: Math.sin(this.angle) * this.speed
-                };
+                this.velocity = { x: Math.cos(this.angle) * this.speed, y: Math.sin(this.angle) * this.speed };
                 const rand = Math.random();
                 if (rand > 0.85) this.explosionSize = 150;
                 else if (rand > 0.4) this.explosionSize = 70;
@@ -256,103 +242,52 @@
                 this.dead = false;
                 this.trail = [];
             }
-
             update() {
                 this.trail.push({x: this.x, y: this.y});
                 if (this.trail.length > 8) this.trail.shift();
                 this.x += this.velocity.x;
                 this.y += this.velocity.y;
-                if (this.y <= this.targetY) {
-                    this.explode();
-                    this.dead = true;
-                }
+                if (this.y <= this.targetY) { this.explode(); this.dead = true; }
             }
-
             draw() {
-                ctx.beginPath();
-                ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
-                ctx.lineWidth = 1.5;
-                if(this.trail.length > 0) {
-                    ctx.moveTo(this.trail[0].x, this.trail[0].y);
-                    ctx.lineTo(this.x, this.y);
-                    ctx.stroke();
-                }
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                ctx.fillStyle = "#fff";
-                ctx.fill();
+                ctx.beginPath(); ctx.strokeStyle = "rgba(255, 255, 255, 0.3)"; ctx.lineWidth = 1.5;
+                if(this.trail.length > 0) { ctx.moveTo(this.trail[0].x, this.trail[0].y); ctx.lineTo(this.x, this.y); ctx.stroke(); }
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2); ctx.fillStyle = "#fff"; ctx.fill();
             }
-
             explode() {
                 const neonColors = ['#00f2ff', '#00ffaa', '#ff00ee', '#ffff00', '#ff3300', '#4d4dff', '#ffffff'];
                 const color = neonColors[Math.floor(Math.random() * neonColors.length)];
-                for (let i = 0; i < this.explosionSize; i++) {
-                    particles.push(new Particle(this.x, this.y, color));
-                }
+                for (let i = 0; i < this.explosionSize; i++) { particles.push(new Particle(this.x, this.y, color)); }
             }
         }
 
         class Particle {
             constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
+                this.x = x; this.y = y; this.color = color;
                 const angle = Math.random() * Math.PI * 2;
                 const force = Math.random() * 11;
-                this.velocity = {
-                    x: Math.cos(angle) * force,
-                    y: Math.sin(angle) * force
-                };
-                this.alpha = 1;
-                this.friction = 0.94;
-                this.gravity = 0.15;
-                this.size = Math.random() * 3 + 1;
+                this.velocity = { x: Math.cos(angle) * force, y: Math.sin(angle) * force };
+                this.alpha = 1; this.friction = 0.94; this.gravity = 0.15; this.size = Math.random() * 3 + 1;
             }
-
             draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = this.color;
-                ctx.fill();
-                ctx.restore();
+                ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = this.color;
+                ctx.shadowBlur = 12; ctx.shadowColor = this.color; ctx.fill(); ctx.restore();
             }
-
             update() {
-                this.velocity.x *= this.friction;
-                this.velocity.y *= this.friction;
-                this.velocity.y += this.gravity;
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-                this.alpha -= 0.01;
+                this.velocity.x *= this.friction; this.velocity.y *= this.friction; this.velocity.y += this.gravity;
+                this.x += this.velocity.x; this.y += this.velocity.y; this.alpha -= 0.01;
             }
         }
 
-        let fireworks = [];
-        let particles = [];
-
+        let fireworks = []; let particles = [];
         function animate() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            if (Math.random() < 0.07) { 
-                fireworks.push(new Firework());
-            }
-            fireworks.forEach((fw, index) => {
-                fw.update();
-                fw.draw();
-                if (fw.dead) fireworks.splice(index, 1);
-            });
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
-                if (p.alpha <= 0) particles.splice(index, 1);
-            });
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.18)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.07) { fireworks.push(new Firework()); }
+            fireworks.forEach((fw, index) => { fw.update(); fw.draw(); if (fw.dead) fireworks.splice(index, 1); });
+            particles.forEach((p, index) => { p.update(); p.draw(); if (p.alpha <= 0) particles.splice(index, 1); });
             requestAnimationFrame(animate);
         }
-
         animate();
     </script>
 </body>
