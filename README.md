@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Domain | Grand Sale</title>
+    <title>Elite Domain | Locarox.com</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@300;400;600&display=swap');
 
         body, html {
             margin: 0;
@@ -26,47 +26,135 @@
             z-index: 1;
         }
 
-        .content {
+        /* CONTAINER KRYESOR */
+        .main-container {
             position: relative;
             z-index: 10;
+            width: 100%;
             height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            flex-direction: row;
+            justify-content: flex-end; /* I shton elementet djathtas */
+            align-items: flex-start; /* I ngjit lart */
+            padding: 50px;
+            box-sizing: border-box;
             pointer-events: none;
         }
 
-        /* TEKSTI I RI PA PLLAKATË ME ANIMACION 5 SEKONDA */
-        .title {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 4.5rem;
-            color: #fff;
-            letter-spacing: 20px;
-            text-transform: uppercase;
-            margin: 0;
-            /* Shkëlqim i fortë Neon */
-            text-shadow: 0 0 20px rgba(0, 210, 255, 0.8), 0 0 40px rgba(0, 210, 255, 0.4);
-            
-            /* Animacioni: Shfaqet, rri pak, zhduket - përsëritet çdo 5 sekonda */
-            animation: breatheDisplay 5s ease-in-out infinite;
+        /* PLLAKATA E BARDHË */
+        .sales-card {
+            background: #ffffff;
+            width: 320px;
+            padding: 30px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            pointer-events: auto; /* Që butoni të punojë */
+            margin-right: 20px;
         }
 
-        @keyframes breatheDisplay {
-            0%, 100% { 
-                opacity: 0; 
-                transform: scale(0.9);
-                filter: blur(10px);
-            }
-            30%, 70% { 
-                opacity: 1; 
-                transform: scale(1);
-                filter: blur(0px);
-            }
+        .sales-card h2 {
+            color: #000;
+            font-size: 1rem;
+            margin: 0;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .sales-card .domain-name {
+            color: #000;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 15px 0 5px 0;
+        }
+
+        .sales-card .status {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+
+        .sales-card .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 25px;
+        }
+
+        /* BUTONI NEXT */
+        .next-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .next-btn:hover {
+            background: #2ecc71; /* E gjelbër e lehtë */
+            transform: translateY(-2px);
+        }
+
+        .help-text {
+            color: #888;
+            font-size: 0.75rem;
+            margin-top: 20px;
+        }
+
+        /* TEKSTI JASHTË PLLAKATËS (DJATHAS POSHTË) */
+        .external-info {
+            position: absolute;
+            right: 50px;
+            bottom: 80px;
+            text-align: right;
+            color: #fff;
+        }
+
+        .ext-domain {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            letter-spacing: 4px;
+        }
+
+        .ext-status {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .ext-anim {
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.6);
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 10px;
+            animation: fadeInOut 4s infinite ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
 
         @media (max-width: 768px) {
-            .title { font-size: 1.6rem; letter-spacing: 6px; }
+            .main-container { 
+                flex-direction: column; 
+                align-items: center; 
+                padding: 20px;
+                justify-content: center;
+            }
+            .sales-card { margin: 0 auto; width: 85%; }
+            .external-info { position: relative; right: 0; bottom: 0; text-align: center; margin-top: 30px; }
         }
     </style>
 </head>
@@ -74,8 +162,28 @@
 
     <canvas id="canvas"></canvas>
 
-    <div class="content">
-        <h1 class="title">Domain for Sale</h1>
+    <div class="main-container">
+        <div class="sales-card">
+            <h2>BUY NOW</h2>
+            <div class="domain-name">locarox.com</div>
+            <div class="status">is for sale now</div>
+            <div class="price">2,390.00 USD</div>
+            
+            <a href="KËTU_VENDOS_LINKUN_E_PAGESËS" class="next-btn">Next</a>
+            
+            <div class="help-text">
+                Need help? Give us a call<br>
+                <strong>+389 XX XXX XXX</strong> </div>
+        </div>
+
+        <div class="external-info">
+            <div class="ext-domain">locarox.com</div>
+            <div class="ext-status">is for sale!</div>
+            <div class="ext-anim">
+                Simple, secure purchase & transfer<br>
+                Trusted by customers globally
+            </div>
+        </div>
     </div>
 
     <script>
@@ -92,10 +200,8 @@
 
         class Firework {
             constructor() {
-                // Niset nga çdo pikë në fund të ekranit
                 this.x = Math.random() * canvas.width;
                 this.y = canvas.height;
-                // Lartësi të ndryshme plasjeje për diversitet
                 this.targetY = Math.random() * (canvas.height * 0.7) + 50;
                 this.speed = 3 + Math.random() * 3;
                 this.angle = -Math.PI / 2 + (Math.random() * 0.4 - 0.2);
@@ -103,24 +209,19 @@
                     x: Math.cos(this.angle) * this.speed,
                     y: Math.sin(this.angle) * this.speed
                 };
-                
-                // Variacioni i madhësisë së shpërthimit
                 const rand = Math.random();
-                if (rand > 0.85) this.explosionSize = 150; // Super i madh
-                else if (rand > 0.4) this.explosionSize = 70; // Mesatar
-                else this.explosionSize = 30; // I vogël
-                
+                if (rand > 0.85) this.explosionSize = 150;
+                else if (rand > 0.4) this.explosionSize = 70;
+                else this.explosionSize = 30;
                 this.dead = false;
-                this.trail = []; // Gjurma e raketës
+                this.trail = [];
             }
 
             update() {
                 this.trail.push({x: this.x, y: this.y});
                 if (this.trail.length > 8) this.trail.shift();
-
                 this.x += this.velocity.x;
                 this.y += this.velocity.y;
-                
                 if (this.y <= this.targetY) {
                     this.explode();
                     this.dead = true;
@@ -128,7 +229,6 @@
             }
 
             draw() {
-                // Vizatojmë bishtin e raketës gjatë ngjitjes
                 ctx.beginPath();
                 ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
                 ctx.lineWidth = 1.5;
@@ -137,8 +237,6 @@
                     ctx.lineTo(this.x, this.y);
                     ctx.stroke();
                 }
-
-                // Koka e raketës
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
                 ctx.fillStyle = "#fff";
@@ -148,7 +246,6 @@
             explode() {
                 const neonColors = ['#00f2ff', '#00ffaa', '#ff00ee', '#ffff00', '#ff3300', '#4d4dff', '#ffffff'];
                 const color = neonColors[Math.floor(Math.random() * neonColors.length)];
-                
                 for (let i = 0; i < this.explosionSize; i++) {
                     particles.push(new Particle(this.x, this.y, color));
                 }
@@ -161,7 +258,7 @@
                 this.y = y;
                 this.color = color;
                 const angle = Math.random() * Math.PI * 2;
-                const force = Math.random() * 11; // Shpërthim më i fuqishëm
+                const force = Math.random() * 11;
                 this.velocity = {
                     x: Math.cos(angle) * force,
                     y: Math.sin(angle) * force
@@ -169,7 +266,7 @@
                 this.alpha = 1;
                 this.friction = 0.94;
                 this.gravity = 0.15;
-                this.size = Math.random() * 3 + 1; // Grimca me madhësi të ndryshme
+                this.size = Math.random() * 3 + 1;
             }
 
             draw() {
@@ -178,7 +275,6 @@
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fillStyle = this.color;
-                // Efekti Glow për çdo grimcë
                 ctx.shadowBlur = 12;
                 ctx.shadowColor = this.color;
                 ctx.fill();
@@ -191,7 +287,7 @@
                 this.velocity.y += this.gravity;
                 this.x += this.velocity.x;
                 this.y += this.velocity.y;
-                this.alpha -= 0.01; // Zhdukja graduale
+                this.alpha -= 0.01;
             }
         }
 
@@ -199,27 +295,21 @@
         let particles = [];
 
         function animate() {
-            // Krijojmë efektin trail në sfond
             ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Kontrolli i shpeshtësisë së raketave
             if (Math.random() < 0.07) { 
                 fireworks.push(new Firework());
             }
-
             fireworks.forEach((fw, index) => {
                 fw.update();
                 fw.draw();
                 if (fw.dead) fireworks.splice(index, 1);
             });
-
             particles.forEach((p, index) => {
                 p.update();
                 p.draw();
                 if (p.alpha <= 0) particles.splice(index, 1);
             });
-
             requestAnimationFrame(animate);
         }
 
