@@ -27,7 +27,7 @@
             z-index: 1;
         }
 
-        /* POZICIONIMI QËNDROR I TOTALIT */
+        /* POZICIONIMI I RREGULLUAR (MË LART DHE NË QENDËR) */
         .main-wrapper {
             position: relative;
             z-index: 10;
@@ -35,10 +35,11 @@
             height: 100vh;
             display: flex;
             flex-direction: row;
-            justify-content: center; /* Qëndror horizontalisht */
-            align-items: center;     /* Qëndror vertikalisht */
-            gap: 60px;               /* Hapësira mes pllakatës dhe tekstit */
+            justify-content: center; 
+            align-items: center;     
+            gap: 60px;               
             padding: 20px;
+            padding-bottom: 100px; /* E shtyjmë përmbajtjen pak më lart */
             box-sizing: border-box;
             pointer-events: none;
         }
@@ -125,7 +126,7 @@
 
         /* 2. TEKSTI JASHTË */
         .info-panel {
-            text-align: left; /* Tani në mes, e mbajmë radhitjen majtas për panelin */
+            text-align: left;
             color: #fff;
         }
 
@@ -169,7 +170,7 @@
         }
 
         @media (max-width: 1000px) {
-            .main-wrapper { flex-direction: column; gap: 40px; }
+            .main-wrapper { flex-direction: column; gap: 40px; padding-bottom: 40px; }
             .info-panel { text-align: center; }
             .trust-list { align-items: center; }
             .glass-card { width: 95%; max-width: 440px; padding: 30px; }
