@@ -7,65 +7,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;400;600;700&display=swap');
 
-        /* --- STILI I RI: PRELOADER --- */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; /* Sigurohet që është mbi çdo gjë */
-            transition: opacity 0.8s ease, visibility 0.8s;
-        }
-
-        .loader-text {
-            font-family: 'Syncopate', sans-serif;
-            color: #fff;
-            font-size: 1.5rem;
-            letter-spacing: 5px;
-            text-transform: lowercase;
-            margin-bottom: 20px;
-            animation: pulse-glow 2s infinite ease-in-out;
-        }
-
-        .loader-bar {
-            width: 200px;
-            height: 2px;
-            background: rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .loader-progress {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, #00f2ff, transparent);
-            animation: loading-scan 1.5s infinite ease;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.5; text-shadow: 0 0 10px rgba(0,242,255,0); }
-            50% { opacity: 1; text-shadow: 0 0 20px rgba(0,242,255,0.5); }
-        }
-
-        @keyframes loading-scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .preloader-hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        /* --- STILI JOT EKZISTUES (I paprekur) --- */
         body, html {
             margin: 0;
             padding: 0;
@@ -114,6 +55,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* STILIMI PËR VERIFIED DHE PREMIUM */
         .badge-container {
             display: flex;
             gap: 12px;
@@ -132,33 +74,131 @@
             letter-spacing: 1px;
         }
 
-        .verified-badge { background: rgba(0, 242, 255, 0.15); color: #00f2ff; border: 1px solid rgba(0, 242, 255, 0.3); }
-        .premium-badge { background: rgba(255, 215, 0, 0.15); color: #ffd700; border: 1px solid rgba(255, 215, 0, 0.3); }
-
-        .glass-card h2 { color: #fff; font-size: 2rem; margin: 0 0 15px 0; font-weight: 600; letter-spacing: -0.5px; }
-        .glass-card .domain-line { display: block; margin-bottom: 35px; }
-        .glass-card .domain-name { color: rgba(255,255,255,0.8); font-weight: 300; font-size: 1.1rem; margin: 0 0 8px 0; }
-        .glass-card .price { font-size: 1.8rem; font-weight: 700; color: #fff; margin: 0; letter-spacing: 0.5px; }
-
-        .next-btn {
-            display: block; width: 100%; padding: 20px; background: #fff; color: #000;
-            text-decoration: none; font-weight: 600; border-radius: 20px;
-            transition: all 0.3s ease; border: none; cursor: pointer;
-            text-align: center; font-size: 1.1rem;
+        .verified-badge {
+            background: rgba(0, 242, 255, 0.15);
+            color: #00f2ff;
+            border: 1px solid rgba(0, 242, 255, 0.3);
         }
 
-        .next-btn:hover { background: rgba(255,255,255,0.9); transform: scale(0.98); }
+        .premium-badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
 
-        .contact-info { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 40px; text-align: center; }
-        .phone-link { color: #fff; text-decoration: none; font-size: 1.4rem; font-weight: 600; display: block; margin-top: 10px; }
+        .badge span {
+            font-size: 14px;
+        }
 
-        .info-panel { text-align: left; color: #fff; }
-        .info-domain { font-family: 'Syncopate', sans-serif; font-size: 3.5rem; margin: 0; letter-spacing: 2px; text-transform: lowercase; text-shadow: 0 0 30px rgba(255,255,255,0.2); }
-        .info-status { font-size: 1.6rem; font-weight: 300; opacity: 0.8; margin-top: 5px; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 3px; }
+        .glass-card h2 {
+            color: #fff;
+            font-size: 2rem; 
+            margin: 0 0 15px 0;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
 
-        .trust-list { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
-        .trust-item { display: flex; align-items: center; gap: 15px; font-size: 1rem; color: rgba(255,255,255,0.8); font-weight: 300; }
-        .trust-item span { font-size: 1.4rem; color: #00f2ff; }
+        .glass-card .domain-line {
+            display: block;
+            margin-bottom: 35px;
+        }
+
+        .glass-card .domain-name {
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            font-size: 1.1rem;
+            margin: 0 0 8px 0;
+        }
+
+        .glass-card .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .next-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .next-btn:hover {
+            background: rgba(255,255,255,0.9);
+            transform: scale(0.98);
+        }
+
+        .contact-info {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .phone-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .info-panel {
+            text-align: left;
+            color: #fff;
+        }
+
+        .info-domain {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 3.5rem;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            text-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
+
+        .info-status {
+            font-size: 1.6rem;
+            font-weight: 300;
+            opacity: 0.8;
+            margin-top: 5px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .trust-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+        }
+
+        .trust-item span {
+            font-size: 1.4rem;
+            color: #00f2ff;
+        }
 
         @media (max-width: 1000px) {
             .main-wrapper { flex-direction: column; gap: 40px; padding-bottom: 40px; }
@@ -171,20 +211,17 @@
 </head>
 <body>
 
-    <div id="preloader">
-        <div class="loader-text">dubinv.com</div>
-        <div class="loader-bar">
-            <div class="loader-progress"></div>
-        </div>
-    </div>
-
     <canvas id="canvas"></canvas>
 
     <div class="main-wrapper">
         <div class="glass-card">
             <div class="badge-container">
-                <div class="badge verified-badge"><span class="material-icons">verified</span> verified</div>
-                <div class="badge premium-badge"><span class="material-icons">stars</span> premium domain</div>
+                <div class="badge verified-badge">
+                    <span class="material-icons">verified</span> verified
+                </div>
+                <div class="badge premium-badge">
+                    <span class="material-icons">stars</span> premium domain
+                </div>
             </div>
 
             <h2>Buy Now</h2>
@@ -206,23 +243,23 @@
             <div class="info-status">is for sale!</div>
             
             <div class="trust-list">
-                <div class="trust-item"><span class="material-icons">verified_user</span> Simple, secure purchase & transfer</div>
-                <div class="trust-item"><span class="material-icons">public</span> Trusted by customers globally</div>
-                <div class="trust-item"><span class="material-icons">support_agent</span> 24/7 dedicated support</div>
+                <div class="trust-item">
+                    <span class="material-icons">verified_user</span>
+                    Simple, secure purchase & transfer
+                </div>
+                <div class="trust-item">
+                    <span class="material-icons">public</span>
+                    Trusted by customers globally
+                </div>
+                <div class="trust-item">
+                    <span class="material-icons">support_agent</span>
+                    24/7 dedicated support
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- SCRIPT PER PRELOADERIN ---
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('preloader');
-                loader.classList.add('preloader-hidden');
-            }, 1500); // 1.5 sekonda vonesë që të duket bukur
-        });
-
-        // --- SCRIPT PER RAKETAT (I paprekur) ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
