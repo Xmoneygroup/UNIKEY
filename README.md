@@ -55,7 +55,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* STILIMI PËR VERIFIED DHE PREMIUM - TË PAPREKURA */
         .badge-container {
             display: flex;
             gap: 12px;
@@ -86,9 +85,7 @@
             border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
-        .badge span {
-            font-size: 14px;
-        }
+        .badge span { font-size: 14px; }
 
         .glass-card h2 {
             color: #fff;
@@ -214,7 +211,7 @@
     <canvas id="canvas"></canvas>
 
     <div class="main-wrapper">
-        <div class="glass-card">
+        <div class="glass-card" id="target-card">
             <div class="badge-container">
                 <div class="badge verified-badge">
                     <span class="material-icons">verified</span> verified
@@ -260,9 +257,9 @@
     </div>
 
     <script>
-        // KODI I RI I BACKGROUND-IT (CYBER FINANCIAL GRID + FIREWORKS) - I NDYSHUAR
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
+        const cardElement = document.getElementById('target-card');
         let width, height;
 
         function setCanvasSize() {
@@ -272,167 +269,149 @@
         setCanvasSize();
         window.addEventListener('resize', setCanvasSize);
 
-        // Konfigurimi i Rrjetës Financiare
-        const gridColor = 'rgba(0, 242, 255, 0.1)'; // Neon Cyan shumë i dobët
-        const dataPointColor = '#00f2ff'; // Neon Cyan për pikat e të dhënave
-        const graphLineColor = 'rgba(0, 255, 170, 0.3)'; // Neon Green për vijat e grafikut
-
-        let gridLines = [];
-        let dataPoints = [];
-        let graphLines = [];
-        let fireworks = [];
-        let particles = [];
-
-        // Inicializo Rrjetën
-        function initFinancialGrid() {
-            gridLines = [];
-            dataPoints = [];
-            graphLines = [];
-            const numLines = 15;
-            const spacing = height / numLines;
-
-            // Krijo vija horizontale si tregjet e aksioneve
-            for (let i = 0; i < numLines; i++) {
-                gridLines.push({
-                    y: i * spacing + spacing/2,
-                    speed: 0.5 + Math.random() * 1,
-                    offset: Math.random() * width
-                });
+        // --- Stick Figure Class ---
+        class Person {
+            constructor() {
+                this.init();
             }
 
-            // Krijo pika të dhënash që lëvizin
-            for (let i = 0; i < 50; i++) {
-                dataPoints.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    speed: 1 + Math.random() * 2,
-                    size: Math.random() * 2 + 1
-                });
+            init() {
+                this.x = Math.random() * width;
+                this.y = -50;
+                this.size = 15 + Math.random() * 10;
+                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                this.speedX = (Math.random() - 0.5) * 4;
+                this.speedY = 2 + Math.random() * 3;
+                this.state = 'falling'; // falling, running, jumping, leaving
+                this.legAngle = 0;
             }
 
-            // Krijo vija grafiku (Stock graphs)
-            for (let i = 0; i < 5; i++) {
-                let points = [];
-                let startY = height * 0.2 + Math.random() * (height * 0.6);
-                for(let x=0; x<=width; x+=50) {
-                    points.push({x: x, y: startY + (Math.random()*100 - 50)});
+            draw() {
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+
+                const headRadius = this.size / 3;
+                const bodyLen = this.size;
+                
+                // Head
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, headRadius, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Body
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y + headRadius);
+                ctx.lineTo(this.x, this.y + headRadius + bodyLen);
+                ctx.stroke();
+
+                // Legs
+                let angle = Math.sin(this.legAngle) * 0.5;
+                ctx.beginPath(); // Left leg
+                ctx.moveTo(this.x, this.y + headRadius + bodyLen);
+                ctx.lineTo(this.x - 10 * Math.sin(angle + 0.5), this.y + headRadius + bodyLen + 15);
+                ctx.stroke();
+
+                ctx.beginPath(); // Right leg
+                ctx.moveTo(this.x, this.y + headRadius + bodyLen);
+                ctx.lineTo(this.x + 10 * Math.sin(angle + 0.5), this.y + headRadius + bodyLen + 15);
+                ctx.stroke();
+
+                // Arms
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y + headRadius + 5);
+                ctx.lineTo(this.x - 10, this.y + headRadius + 15 + (this.state === 'jumping' ? -20 : 0));
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y + headRadius + 5);
+                ctx.lineTo(this.x + 10, this.y + headRadius + 15 + (this.state === 'jumping' ? -20 : 0));
+                ctx.stroke();
+            }
+
+            update() {
+                const rect = cardElement.getBoundingClientRect();
+                const cardX = rect.left + rect.width / 2;
+                const cardY = rect.top;
+
+                if (this.state === 'falling') {
+                    this.y += this.speedY;
+                    if (this.y > height - 100) this.state = 'running';
+                } 
+                else if (this.state === 'running') {
+                    this.legAngle += 0.2;
+                    let dir = this.x < cardX ? 1 : -1;
+                    this.x += 3 * dir;
+                    if (Math.abs(this.x - cardX) < 150) this.state = 'jumping';
+                } 
+                else if (this.state === 'jumping') {
+                    this.y -= 5;
+                    this.x += (this.x < cardX ? 2 : -2);
+                    if (this.y < cardY - 20) this.state = 'leaving';
+                } 
+                else if (this.state === 'leaving') {
+                    this.legAngle += 0.3;
+                    this.y += 7;
+                    this.x += (this.x < width / 2 ? -4 : 4);
+                    if (this.y > height + 50 || this.x < -50 || this.x > width + 50) this.init();
                 }
-                graphLines.push({
-                    points: points,
-                    speed: 1 + Math.random(),
-                    offset: 0
-                });
             }
         }
-        initFinancialGrid();
-        window.addEventListener('resize', initFinancialGrid);
 
-        // --- Klasat e Fishekzjarreve (Ndryshuar për të krisur pas pllakatës) ---
+        // --- Raketat (Rralluar) ---
         class Firework {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = height;
-                this.targetY = Math.random() * (height * 0.7) + 50;
-                this.speed = 3 + Math.random() * 3;
-                this.angle = -Math.PI / 2 + (Math.random() * 0.2 - 0.1);
-                this.velocity = { x: Math.cos(this.angle) * this.speed, y: Math.sin(this.angle) * this.speed };
+                this.targetY = Math.random() * (height * 0.5);
+                this.speed = 4;
                 this.dead = false;
-                this.trail = [];
             }
             update() {
-                this.trail.push({x: this.x, y: this.y});
-                if (this.trail.length > 8) this.trail.shift();
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
+                this.y -= this.speed;
                 if (this.y <= this.targetY) { this.explode(); this.dead = true; }
             }
             draw() {
-                ctx.beginPath(); ctx.strokeStyle = "rgba(255, 255, 255, 0.2)"; ctx.lineWidth = 1;
-                if(this.trail.length > 0) { ctx.moveTo(this.trail[0].x, this.trail[0].y); ctx.lineTo(this.x, this.y); ctx.stroke(); }
+                ctx.fillStyle = "white";
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI*2); ctx.fill();
             }
             explode() {
-                // Ngjyra neon për fishekzjarret (Ari, Cyan, Vjollcë, Bardhë)
-                const colors = ['#FFD700', '#00f2ff', '#ff00ee', '#ffffff', '#ffd700', '#00ffaa'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const explosionSize = 50 + Math.random() * 100;
-                for (let i = 0; i < explosionSize; i++) { particles.push(new Particle(this.x, this.y, color)); }
+                for (let i = 0; i < 30; i++) { particles.push(new Particle(this.x, this.y)); }
             }
         }
 
         class Particle {
-            constructor(x, y, color) {
-                this.x = x; this.y = y; this.color = color;
-                const angle = Math.random() * Math.PI * 2;
-                const force = Math.random() * 9;
-                this.velocity = { x: Math.cos(angle) * force, y: Math.sin(angle) * force };
-                this.alpha = 1; this.friction = 0.95; this.gravity = 0.12; this.size = Math.random() * 2 + 0.5;
-            }
-            draw() {
-                ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = this.color;
-                ctx.shadowBlur = 10; ctx.shadowColor = this.color; ctx.fill(); ctx.restore();
+            constructor(x, y) {
+                this.x = x; this.y = y;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.vel = { x: (Math.random() - 0.5) * 8, y: (Math.random() - 0.5) * 8 };
+                this.alpha = 1;
             }
             update() {
-                this.velocity.x *= this.friction; this.velocity.y *= this.friction; this.velocity.y += this.gravity;
-                this.x += this.velocity.x; this.y += this.velocity.y; this.alpha -= 0.01;
+                this.x += this.vel.x; this.y += this.vel.y; this.alpha -= 0.02;
+            }
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI*2); ctx.fill();
+                ctx.globalAlpha = 1;
             }
         }
 
+        let people = Array.from({ length: 6 }, () => new Person());
+        let fireworks = [];
+        let particles = [];
+
         function animate() {
-            // Pastro canvasin
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.25)'; // Fade për trail-et
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
             ctx.fillRect(0, 0, width, height);
 
-            // --- 1. Vizato Rrjetën Financiare dhe Grafiqet (SHTRESA E PASME) ---
+            // Raketat (Rralluar: 0.01 probabilitet)
+            if (Math.random() < 0.01) fireworks.push(new Firework());
+
+            fireworks.forEach((f, i) => { f.update(); f.draw(); if (f.dead) fireworks.splice(i, 1); });
+            particles.forEach((p, i) => { p.update(); p.draw(); if (p.alpha <= 0) particles.splice(i, 1); });
             
-            // Vizato vijat horizontale të rrjetës
-            ctx.strokeStyle = gridColor;
-            ctx.lineWidth = 1;
-            gridLines.forEach(line => {
-                ctx.beginPath();
-                ctx.moveTo(0, line.y);
-                ctx.lineTo(width, line.y);
-                ctx.stroke();
-            });
-
-            // Vizato vijat e grafikut (Stock graphs)
-            ctx.strokeStyle = graphLineColor;
-            ctx.lineWidth = 1.5;
-            ctx.shadowBlur = 5;
-            ctx.shadowColor = graphLineColor;
-            graphLines.forEach(line => {
-                ctx.beginPath();
-                line.points.forEach((p, index) => {
-                    let drawX = p.x - line.offset;
-                    if (drawX < 0) drawX += width + 50; // Loop horizontalt
-                    if (index === 0) ctx.moveTo(drawX, p.y);
-                    else ctx.lineTo(drawX, p.y);
-                });
-                ctx.stroke();
-                line.offset += line.speed;
-                if (line.offset > width + 50) line.offset = 0;
-            });
-            ctx.shadowBlur = 0; // Reset glow
-
-            // Vizato pikat e të dhënave që lëvizin
-            ctx.fillStyle = dataPointColor;
-            dataPoints.forEach(p => {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                p.x += p.speed;
-                if (p.x > width) p.x = 0; // Loop horizontal
-            });
-
-            // --- 2. Vizato Fishekzjarret (SHTRESA E MESME - PAS PLLAKATËS) ---
-            // Ata vizatohen këtu që të jenë mrapa main-wrapper (.main-wrapper ka z-index 10, canvas ka z-index 1)
-            
-            // Krijo fishekzjarre të reja
-            if (Math.random() < 0.06) { fireworks.push(new Firework()); }
-
-            // Përditëso dhe vizato fishekzjarret
-            fireworks.forEach((fw, index) => { fw.update(); fw.draw(); if (fw.dead) fireworks.splice(index, 1); });
-            particles.forEach((p, index) => { p.update(); p.draw(); if (p.alpha <= 0) particles.splice(index, 1); });
+            people.forEach(p => { p.update(); p.draw(); });
 
             requestAnimationFrame(animate);
         }
