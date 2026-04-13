@@ -239,7 +239,7 @@
         </div>
 
         <div class="info-panel">
-            <div class="info-domain">dubrent.com</div>
+            <div class="info-domain">dubinv.com</div>
             <div class="info-status">is for sale!</div>
             
             <div class="trust-list">
