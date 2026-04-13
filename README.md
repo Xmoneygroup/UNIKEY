@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Domain Sales | dubrent.com</title>
+    <title>Elite Domain Sales | dubinv.com</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;400;600;700&display=swap');
@@ -55,7 +55,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* STILIMI PËR VERIFIED DHE PREMIUM */
         .badge-container {
             display: flex;
             gap: 12px;
@@ -262,44 +261,93 @@
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+        let width, height;
 
+        function setCanvasSize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+
+        // --- Konfigurimi i Animacionit të Ndërtimit ---
+        const constructionColor = '#00f2ff'; // Neon Cyan
+        const constructionGlow = '#00c3ff';
+        const finishedBuildingColor = '#1a1a1a'; // Dark grey silhouette
+        const buildingSpeed = 2; // Sa pikselë ngrihet në çdo frame
+        
+        let buildings = [];
+        let fireworks = [];
+        let particles = [];
+
+        // Krijo strukturat e ndërtesave (siluetat ikonike të Dubait)
+        function initBuildings() {
+            buildings = [];
+            const numBuildings = Math.floor(width / 100); // Një ndërtesë çdo 100px
+            
+            for (let i = 0; i < numBuildings; i++) {
+                // Përcakto llojin e ndërtesës (Burj Khalifa, Cayan Tower, etj.)
+                const typeRand = Math.random();
+                let bWidth, bHeight, complexity;
+                
+                if (typeRand > 0.8) { // Burj Khalifa style
+                    bWidth = 30 + Math.random() * 20;
+                    bHeight = height * 0.6 + Math.random() * (height * 0.3);
+                    complexity = 'spire';
+                } else if (typeRand > 0.5) { // Twisting tower style
+                    bWidth = 40 + Math.random() * 20;
+                    bHeight = height * 0.4 + Math.random() * (height * 0.3);
+                    complexity = 'twist';
+                } else { // Standard block
+                    bWidth = 50 + Math.random() * 30;
+                    bHeight = height * 0.3 + Math.random() * (height * 0.3);
+                    complexity = 'block';
+                }
+
+                buildings.push({
+                    x: i * 100 + (Math.random() * 20 - 10) + 50, // Pozicioni X
+                    y: height, // Fillon nga fundi
+                    targetHeight: bHeight,
+                    width: bWidth,
+                    currentHeight: 0, // Sa është ndërtuar aktualisht
+                    status: 'constructing', // constructing, finished
+                    complexity: complexity,
+                    color: finishedBuildingColor
+                });
+            }
+        }
+        initBuildings();
+        window.addEventListener('resize', initBuildings); // Rikrijo kur ndryshon ekrani
+
+        // --- Klasat e Fishekzjarreve (Ndryshuar për të shpërthyer pas ndërtesave) ---
         class Firework {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height;
-                this.targetY = Math.random() * (canvas.height * 0.7) + 50;
-                this.speed = 3 + Math.random() * 3;
-                this.angle = -Math.PI / 2 + (Math.random() * 0.4 - 0.2);
+            constructor(x, targetY) {
+                this.x = x;
+                this.y = height;
+                this.targetY = targetY;
+                this.speed = 4 + Math.random() * 2;
+                this.angle = -Math.PI / 2 + (Math.random() * 0.1 - 0.05);
                 this.velocity = { x: Math.cos(this.angle) * this.speed, y: Math.sin(this.angle) * this.speed };
-                const rand = Math.random();
-                if (rand > 0.85) this.explosionSize = 150;
-                else if (rand > 0.4) this.explosionSize = 70;
-                else this.explosionSize = 30;
                 this.dead = false;
                 this.trail = [];
             }
             update() {
                 this.trail.push({x: this.x, y: this.y});
-                if (this.trail.length > 8) this.trail.shift();
+                if (this.trail.length > 10) this.trail.shift();
                 this.x += this.velocity.x;
                 this.y += this.velocity.y;
                 if (this.y <= this.targetY) { this.explode(); this.dead = true; }
             }
             draw() {
-                ctx.beginPath(); ctx.strokeStyle = "rgba(255, 255, 255, 0.3)"; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.strokeStyle = "rgba(255, 255, 255, 0.2)"; ctx.lineWidth = 1;
                 if(this.trail.length > 0) { ctx.moveTo(this.trail[0].x, this.trail[0].y); ctx.lineTo(this.x, this.y); ctx.stroke(); }
-                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2); ctx.fillStyle = "#fff"; ctx.fill();
             }
             explode() {
-                const neonColors = ['#00f2ff', '#00ffaa', '#ff00ee', '#ffff00', '#ff3300', '#4d4dff', '#ffffff'];
-                const color = neonColors[Math.floor(Math.random() * neonColors.length)];
-                for (let i = 0; i < this.explosionSize; i++) { particles.push(new Particle(this.x, this.y, color)); }
+                // Ngjyra luksoze dhe neon (ari, argjend, cyan, vjollcë)
+                const colors = ['#FFD700', '#FFFFFF', '#00f2ff', '#ff00ee', '#ffd700', '#ffffff'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const explosionSize = 50 + Math.random() * 100;
+                for (let i = 0; i < explosionSize; i++) { particles.push(new Particle(this.x, this.y, color)); }
             }
         }
 
@@ -307,14 +355,14 @@
             constructor(x, y, color) {
                 this.x = x; this.y = y; this.color = color;
                 const angle = Math.random() * Math.PI * 2;
-                const force = Math.random() * 11;
+                const force = Math.random() * 9;
                 this.velocity = { x: Math.cos(angle) * force, y: Math.sin(angle) * force };
-                this.alpha = 1; this.friction = 0.94; this.gravity = 0.15; this.size = Math.random() * 3 + 1;
+                this.alpha = 1; this.friction = 0.95; this.gravity = 0.12; this.size = Math.random() * 2 + 0.5;
             }
             draw() {
                 ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = this.color;
-                ctx.shadowBlur = 12; ctx.shadowColor = this.color; ctx.fill(); ctx.restore();
+                ctx.shadowBlur = 10; ctx.shadowColor = this.color; ctx.fill(); ctx.restore();
             }
             update() {
                 this.velocity.x *= this.friction; this.velocity.y *= this.friction; this.velocity.y += this.gravity;
@@ -322,12 +370,100 @@
             }
         }
 
-        let fireworks = []; let particles = [];
+        // --- Loop-i Kryesor i Animacionit ---
         function animate() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.18)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            if (Math.random() < 0.07) { fireworks.push(new Firework()); }
+            // Pastro canvasin me një fade të lehtë për trail-et
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; 
+            ctx.fillRect(0, 0, width, height);
+
+            // --- 1. Vizato Fishekzjarret (SHTRESA E PASME) ---
+            // Ata vizatohen para ndërtesave që të duken "mbrapa" tyre
             fireworks.forEach((fw, index) => { fw.update(); fw.draw(); if (fw.dead) fireworks.splice(index, 1); });
             particles.forEach((p, index) => { p.update(); p.draw(); if (p.alpha <= 0) particles.splice(index, 1); });
+
+            // --- 2. Vizato dhe Përditëso Ndërtesat (SHTRESA E MESME) ---
+            let allFinished = true;
+            buildings.forEach(b => {
+                ctx.save();
+                
+                // Efekti Glow kur ndërtohet
+                if (b.status === 'constructing') {
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = constructionGlow;
+                    ctx.strokeStyle = constructionColor;
+                    ctx.lineWidth = 2;
+                    allFinished = false;
+                } else {
+                    ctx.shadowBlur = 5;
+                    ctx.shadowColor = 'rgba(26, 26, 26, 0.5)';
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; // Kufiri i hollë i xhamit kur mbaron
+                    ctx.lineWidth = 1;
+                }
+
+                // Vizato siluetën e ndërtesës
+                ctx.beginPath();
+                
+                if (b.complexity === 'spire') { // Burj Style
+                    ctx.moveTo(b.x - b.width/2, height);
+                    ctx.lineTo(b.x - b.width/2, height - b.currentHeight * 0.7);
+                    ctx.lineTo(b.x - b.width/4, height - b.currentHeight * 0.9);
+                    ctx.lineTo(b.x, height - b.currentHeight); // Maja
+                    ctx.lineTo(b.x + b.width/4, height - b.currentHeight * 0.9);
+                    ctx.lineTo(b.x + b.width/2, height - b.currentHeight * 0.7);
+                    ctx.lineTo(b.x + b.width/2, height);
+                } else if (b.complexity === 'twist') { // Twisted style
+                    const sections = 10;
+                    ctx.moveTo(b.x - b.width/2, height);
+                    for(let i=1; i<=sections; i++) {
+                        const h = (b.currentHeight / sections) * i;
+                        const twist = Math.sin(i * 0.5) * 10;
+                        ctx.lineTo(b.x - b.width/2 + twist, height - h);
+                    }
+                    ctx.lineTo(b.x + b.width/2, height - b.currentHeight);
+                    for(let i=sections; i>=0; i--) {
+                        const h = (b.currentHeight / sections) * i;
+                        const twist = Math.sin(i * 0.5) * 10;
+                        ctx.lineTo(b.x + b.width/2 + twist, height - h);
+                    }
+                } else { // Block style
+                    ctx.rect(b.x - b.width/2, height - b.currentHeight, b.width, b.currentHeight);
+                }
+
+                // Mbush ndërtesën (siluetë e errët)
+                ctx.fillStyle = b.color;
+                ctx.fill();
+                ctx.stroke(); // Vizato vijat neon
+
+                // Shto dritare të vogla kur mbaron
+                if (b.status === 'finished') {
+                    ctx.fillStyle = Math.random() > 0.98 ? finishedBuildingColor : 'rgba(255, 255, 255, 0.3)'; // Dritare që nisin e fiken
+                    for (let wy = height - b.currentHeight + 20; wy < height - 20; wy += 20) {
+                        for (let wx = b.x - b.width/2 + 10; wx < b.x + b.width/2 - 10; wx += 15) {
+                            if (Math.random() > 0.3) ctx.fillRect(wx, wy, 3, 3);
+                        }
+                    }
+                }
+                
+                ctx.restore();
+
+                // Përditëso lartësinë (procesi i ndërtimit)
+                if (b.status === 'constructing') {
+                    b.currentHeight += buildingSpeed;
+                    if (b.currentHeight >= b.targetHeight) {
+                        b.currentHeight = b.targetHeight;
+                        b.status = 'finished';
+                        b.color = finishedBuildingColor; // Ngjyra përfundimtare e errët
+                        // Shpërthe një fishekzjarr MBRAK ndërtesës kur mbaron
+                        fireworks.push(new Firework(b.x, height - b.targetHeight - Math.random() * 50));
+                    }
+                }
+            });
+
+            // Nëse të gjitha mbaruan, rifillo ndërtimin pas një kohe
+            if (allFinished && Math.random() < 0.005) { // 0.5% shans në çdo frame pas mbarimit
+                 initBuildings();
+            }
+
             requestAnimationFrame(animate);
         }
         animate();
