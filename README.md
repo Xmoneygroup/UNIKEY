@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elite Domain Sales | dubrent.com</title>
+    <title>Elite Domain Sales | Portfolio</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;400;600;700&display=swap');
@@ -12,13 +12,13 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             background-color: #000;
             font-family: 'Space Grotesk', sans-serif;
+            overflow-y: auto; /* Lejon skrollimin për të parë të dyja pllakatat */
         }
 
         #canvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -30,16 +30,12 @@
             position: relative;
             z-index: 10;
             width: 100%;
-            height: 100vh;
             display: flex;
-            flex-direction: row;
-            justify-content: center; 
+            flex-direction: column; /* Rreshton pllakatat njëra pas tjetrës */
             align-items: center;     
-            gap: 60px;                
-            padding: 20px;
-            padding-bottom: 180px;
+            gap: 40px;                
+            padding: 80px 20px;
             box-sizing: border-box;
-            pointer-events: none;
         }
 
         .glass-card {
@@ -51,11 +47,9 @@
             border-radius: 40px;
             text-align: left;
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-            pointer-events: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* STILIMI PËR VERIFIED DHE PREMIUM */
         .badge-container {
             display: flex;
             gap: 12px;
@@ -86,10 +80,6 @@
             border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
-        .badge span {
-            font-size: 14px;
-        }
-
         .glass-card h2 {
             color: #fff;
             font-size: 2rem; 
@@ -98,19 +88,19 @@
             letter-spacing: -0.5px;
         }
 
-        .glass-card .domain-line {
+        .domain-line {
             display: block;
             margin-bottom: 35px;
         }
 
-        .glass-card .domain-name {
+        .domain-name {
             color: rgba(255,255,255,0.8);
             font-weight: 300;
             font-size: 1.1rem;
             margin: 0 0 8px 0;
         }
 
-        .glass-card .price {
+        .price {
             font-size: 1.8rem;
             font-weight: 700;
             color: #fff;
@@ -128,8 +118,6 @@
             font-weight: 600;
             border-radius: 20px;
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
             text-align: center;
             font-size: 1.1rem;
         }
@@ -155,57 +143,8 @@
             margin-top: 10px;
         }
 
-        .info-panel {
-            text-align: left;
-            color: #fff;
-        }
-
-        .info-domain {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 3.5rem;
-            margin: 0;
-            letter-spacing: 2px;
-            text-transform: lowercase;
-            text-shadow: 0 0 30px rgba(255,255,255,0.2);
-        }
-
-        .info-status {
-            font-size: 1.6rem;
-            font-weight: 300;
-            opacity: 0.8;
-            margin-top: 5px;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .trust-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.8);
-            font-weight: 300;
-        }
-
-        .trust-item span {
-            font-size: 1.4rem;
-            color: #00f2ff;
-        }
-
-        @media (max-width: 1000px) {
-            .main-wrapper { flex-direction: column; gap: 40px; padding-bottom: 40px; }
-            .info-panel { text-align: center; }
-            .trust-list { align-items: center; }
-            .glass-card { width: 90%; max-width: 570px; padding: 40px; }
-            .info-domain { font-size: 2.5rem; }
+        @media (max-width: 650px) {
+            .glass-card { width: 95%; padding: 40px; }
         }
     </style>
 </head>
@@ -214,49 +153,41 @@
     <canvas id="canvas"></canvas>
 
     <div class="main-wrapper">
+        
         <div class="glass-card">
             <div class="badge-container">
-                <div class="badge verified-badge">
-                    <span class="material-icons">verified</span> verified
-                </div>
-                <div class="badge premium-badge">
-                    <span class="material-icons">stars</span> premium domain
-                </div>
+                <div class="badge verified-badge"><span class="material-icons">verified</span> verified</div>
+                <div class="badge premium-badge"><span class="material-icons">stars</span> premium domain</div>
             </div>
-
             <h2>Buy Now</h2>
             <div class="domain-line">
                 <p class="domain-name">dubrent.com is for sale now</p>
                 <p class="price">9,000 USD</p>
             </div>
-            
             <a href="https://www.namecheap.com/domains/registration/results/?domain=dubrent.com" class="next-btn">Buy Domain</a>
-            
             <div class="contact-info">
                 Need help? Give us a call<br>
-                <a href="tel:+389XXXXXXXXX" class="phone-link">+389 XX XXX XXX</a> 
+                <a href="tel:+38970878227" class="phone-link">+389 70 878 227</a> 
             </div>
         </div>
 
-        <div class="info-panel">
-            <div class="info-domain">dubrent.com</div>
-            <div class="info-status">is for sale!</div>
-            
-            <div class="trust-list">
-                <div class="trust-item">
-                    <span class="material-icons">verified_user</span>
-                    Simple, secure purchase & transfer
-                </div>
-                <div class="trust-item">
-                    <span class="material-icons">public</span>
-                    Trusted by customers globally
-                </div>
-                <div class="trust-item">
-                    <span class="material-icons">support_agent</span>
-                    24/7 dedicated support
-                </div>
+        <div class="glass-card">
+            <div class="badge-container">
+                <div class="badge verified-badge"><span class="material-icons">verified</span> verified</div>
+                <div class="badge premium-badge"><span class="material-icons">stars</span> premium domain</div>
+            </div>
+            <h2>Buy Now</h2>
+            <div class="domain-line">
+                <p class="domain-name">dubmall.com is for sale now</p>
+                <p class="price">25,000 USD</p>
+            </div>
+            <a href="https://www.namecheap.com/domains/registration/results/?domain=dubmall.com" class="next-btn">Buy Domain</a>
+            <div class="contact-info">
+                Need help? Give us a call<br>
+                <a href="tel:+38970878227" class="phone-link">+389 70 878 227</a> 
             </div>
         </div>
+
     </div>
 
     <script>
