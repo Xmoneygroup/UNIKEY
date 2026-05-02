@@ -1,148 +1,267 @@
-<!DOCTYPE html>
-<html lang="sq">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>X-TREME VELOCITY | Ultra Quality</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Domain Sales | Portfolio</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        body { margin: 0; background: #000; overflow: hidden; font-family: 'Inter', sans-serif; }
-        #ui { position: absolute; top: 30px; left: 30px; color: white; z-index: 100; pointer-events: none; }
-        #score { font-size: 48px; font-weight: 900; color: #00ffcc; text-shadow: 0 0 20px #00ffcc; }
-        canvas { display: block; filter: contrast(1.2) brightness(1.1); }
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;400;600;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-y: auto; /* Lejon skrollimin për të parë të dyja pllakatat */
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Rreshton pllakatat njëra pas tjetrës */
+            align-items: center;     
+            gap: 40px;                
+            padding: 80px 20px;
+            box-sizing: border-box;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            width: 570px; 
+            padding: 60px; 
+            border-radius: 40px;
+            text-align: left;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .verified-badge {
+            background: rgba(0, 242, 255, 0.15);
+            color: #00f2ff;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+        }
+
+        .premium-badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .glass-card h2 {
+            color: #fff;
+            font-size: 2rem; 
+            margin: 0 0 15px 0;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .domain-line {
+            display: block;
+            margin-bottom: 35px;
+        }
+
+        .domain-name {
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            font-size: 1.1rem;
+            margin: 0 0 8px 0;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .next-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .next-btn:hover {
+            background: rgba(255,255,255,0.9);
+            transform: scale(0.98);
+        }
+
+        .contact-info {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .phone-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 650px) {
+            .glass-card { width: 95%; padding: 40px; }
+        }
     </style>
 </head>
 <body>
 
-<div id="ui">
-    <div style="font-size: 12px; letter-spacing: 5px; opacity: 0.5;">X-MESAGE SYSTEM</div>
-    <div id="score">0</div>
-</div>
+    <canvas id="canvas"></canvas>
 
-<canvas id="c"></canvas>
+    <div class="main-wrapper">
+        
+        <div class="glass-card">
+            <div class="badge-container">
+                <div class="badge verified-badge"><span class="material-icons">verified</span> verified</div>
+                <div class="badge premium-badge"><span class="material-icons">stars</span> premium domain</div>
+            </div>
+            <h2>Buy Now</h2>
+            <div class="domain-line">
+                <p class="domain-name">dubrent.com is for sale now</p>
+                <p class="price">9,000 USD</p>
+            </div>
+            <a href="https://www.namecheap.com/domains/registration/results/?domain=dubrent.com" class="next-btn">Buy Domain</a>
+            <div class="contact-info">
+                Need help? Give us a call<br>
+                <a href="tel:+38970878227" class="phone-link">+389 70 878 227</a> 
+            </div>
+        </div>
 
-<script>
-    const canvas = document.getElementById('c');
-    const ctx = canvas.getContext('2d');
-    let w = canvas.width = window.innerWidth;
-    let h = canvas.height = window.innerHeight;
+        <div class="glass-card">
+            <div class="badge-container">
+                <div class="badge verified-badge"><span class="material-icons">verified</span> verified</div>
+                <div class="badge premium-badge"><span class="material-icons">stars</span> premium domain</div>
+            </div>
+            <h2>Buy Now</h2>
+            <div class="domain-line">
+                <p class="domain-name">dubmall.com is for sale now</p>
+                <p class="price">25,000 USD</p>
+            </div>
+            <a href="https://www.namecheap.com/domains/registration/results/?domain=dubmall.com" class="next-btn">Buy Domain</a>
+            <div class="contact-info">
+                Need help? Give us a call<br>
+                <a href="tel:+38970878227" class="phone-link">+389 70 878 227</a> 
+            </div>
+        </div>
 
-    let score = 0;
-    let particles = [];
-    let obstacles = [];
-    let speed = 15;
-    let mouse = { x: w / 2, y: h / 2 };
+    </div>
 
-    // Grimcat e sfondit (Stars/Dust)
-    class Particle {
-        constructor() {
-            this.reset();
-        }
-        reset() {
-            this.x = Math.random() * w;
-            this.y = Math.random() * h;
-            this.z = Math.random() * w;
-            this.pz = this.z;
-        }
-        update() {
-            this.z -= speed;
-            if (this.z <= 1) this.reset();
-        }
-        show() {
-            let sx = (this.x - w / 2) * (w / this.z) + w / 2;
-            let sy = (this.y - h / 2) * (w / this.z) + h / 2;
-            let px = (this.x - w / 2) * (w / this.pz) + w / 2;
-            let py = (this.y - h / 2) * (w / this.pz) + h / 2;
-            this.pz = this.z;
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
 
-            ctx.strokeStyle = 'rgba(0, 255, 204, 0.4)';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(sx, sy);
-            ctx.lineTo(px, py);
-            ctx.stroke();
-        }
-    }
-
-    // Pengesat (Neon Rings)
-    class Obstacle {
-        constructor() {
-            this.z = w;
-            this.x = Math.random() * w;
-            this.y = Math.random() * h;
-            this.size = 150;
-        }
-        update() {
-            this.z -= speed;
-            if (this.z <= 0) {
-                this.z = w;
-                this.x = Math.random() * w;
-                this.y = Math.random() * h;
-                score += 10;
-                document.getElementById('score').innerText = score;
+        class Firework {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.targetY = Math.random() * (canvas.height * 0.7) + 50;
+                this.speed = 3 + Math.random() * 3;
+                this.angle = -Math.PI / 2 + (Math.random() * 0.4 - 0.2);
+                this.velocity = { x: Math.cos(this.angle) * this.speed, y: Math.sin(this.angle) * this.speed };
+                const rand = Math.random();
+                if (rand > 0.85) this.explosionSize = 150;
+                else if (rand > 0.4) this.explosionSize = 70;
+                else this.explosionSize = 30;
+                this.dead = false;
+                this.trail = [];
+            }
+            update() {
+                this.trail.push({x: this.x, y: this.y});
+                if (this.trail.length > 8) this.trail.shift();
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                if (this.y <= this.targetY) { this.explode(); this.dead = true; }
+            }
+            draw() {
+                ctx.beginPath(); ctx.strokeStyle = "rgba(255, 255, 255, 0.3)"; ctx.lineWidth = 1.5;
+                if(this.trail.length > 0) { ctx.moveTo(this.trail[0].x, this.trail[0].y); ctx.lineTo(this.x, this.y); ctx.stroke(); }
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2); ctx.fillStyle = "#fff"; ctx.fill();
+            }
+            explode() {
+                const neonColors = ['#00f2ff', '#00ffaa', '#ff00ee', '#ffff00', '#ff3300', '#4d4dff', '#ffffff'];
+                const color = neonColors[Math.floor(Math.random() * neonColors.length)];
+                for (let i = 0; i < this.explosionSize; i++) { particles.push(new Particle(this.x, this.y, color)); }
             }
         }
-        show() {
-            let scale = w / this.z;
-            let sx = (this.x - w / 2) * scale + w / 2;
-            let sy = (this.y - h / 2) * scale + h / 2;
-            let s = this.size * scale;
 
-            ctx.strokeStyle = '#ff0055';
-            ctx.lineWidth = 5 * scale;
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = '#ff0055';
-            ctx.strokeRect(sx - s/2, sy - s/2, s, s);
-
-            // Kontrolli i përplasjes
-            if (this.z < 50 && Math.abs(sx - mouse.x) < s/2 && Math.abs(sy - mouse.y) < s/2) {
-                speed = 0;
-                ctx.fillStyle = "white";
-                ctx.font = "bold 60px Inter";
-                ctx.fillText("CRITICAL ERROR", w/2 - 200, h/2);
-                setTimeout(() => location.reload(), 2000);
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                const angle = Math.random() * Math.PI * 2;
+                const force = Math.random() * 11;
+                this.velocity = { x: Math.cos(angle) * force, y: Math.sin(angle) * force };
+                this.alpha = 1; this.friction = 0.94; this.gravity = 0.15; this.size = Math.random() * 3 + 1;
+            }
+            draw() {
+                ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = this.color;
+                ctx.shadowBlur = 12; ctx.shadowColor = this.color; ctx.fill(); ctx.restore();
+            }
+            update() {
+                this.velocity.x *= this.friction; this.velocity.y *= this.friction; this.velocity.y += this.gravity;
+                this.x += this.velocity.x; this.y += this.velocity.y; this.alpha -= 0.01;
             }
         }
-    }
 
-    for (let i = 0; i < 400; i++) particles.push(new Particle());
-    for (let i = 0; i < 3; i++) obstacles.push(new Obstacle());
-
-    function drawX(x, y) {
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 6;
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = "white";
-        
-        ctx.beginPath();
-        ctx.moveTo(-30, -30); ctx.lineTo(30, 30);
-        ctx.moveTo(30, -30); ctx.lineTo(-30, 30);
-        ctx.stroke();
-        ctx.restore();
-    }
-
-    function loop() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; // Motion Blur efekt
-        ctx.fillRect(0, 0, w, h);
-
-        particles.forEach(p => { p.update(); p.show(); });
-        obstacles.forEach(o => { o.update(); o.show(); });
-        
-        drawX(mouse.x, mouse.y);
-        
-        if (speed > 0) {
-            speed += 0.005;
-            requestAnimationFrame(loop);
+        let fireworks = []; let particles = [];
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.18)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.07) { fireworks.push(new Firework()); }
+            fireworks.forEach((fw, index) => { fw.update(); fw.draw(); if (fw.dead) fireworks.splice(index, 1); });
+            particles.forEach((p, index) => { p.update(); p.draw(); if (p.alpha <= 0) particles.splice(index, 1); });
+            requestAnimationFrame(animate);
         }
-    }
-
-    window.addEventListener('mousemove', e => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-    });
-
-    loop();
-</script>
-
+        animate();
+    </script>
 </body>
 </html>
