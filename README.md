@@ -1,118 +1,267 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>XKAPO | Official</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Domain Sales | Portfolio</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { width: 100%; height: 100%; background-color: #000; overflow: hidden; position: fixed; font-family: sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;400;600;700&display=swap');
 
-        /* INTRO LOGO - 3 FISH */
-        #intro-splash {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; display: flex; justify-content: center; align-items: center; z-index: 10000;
-        }
-        .logo-anim { width: 850px; max-width: 95%; height: auto; opacity: 0; animation: logoFlash 2s forwards; }
-        @keyframes logoFlash {
-            0% { opacity: 0; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(1.1); }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-y: auto; /* Lejon skrollimin për të parë të dyja pllakatat */
         }
 
-        /* NEON BG */
-        #neon-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0; transition: opacity 2s; }
-        .neon-spark { 
-            position: absolute; top: -150px; left: -150px; width: 700px; height: 700px; 
-            border-radius: 50%; filter: blur(160px); background: rgba(0, 255, 255, 0.2); 
-            animation: neonShift 12s infinite alternate ease-in-out;
-        }
-        @keyframes neonShift { 
-            0% { background: rgba(0, 255, 255, 0.2); } 
-            100% { background: rgba(255, 0, 255, 0.1); } 
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
 
-        /* HOME CONTENT */
-        #home-content { opacity: 0; width: 100%; height: 100%; position: relative; transition: opacity 1s; z-index: 10; }
-        
-        .header-center {
-            position: absolute; top: 8%; width: 100%; display: flex; justify-content: center; align-items: center; z-index: 2000;
-        }
-        .wing { width: 150px; height: 2px; background: linear-gradient(to right, transparent, #fff); }
-        .wing.right { background: linear-gradient(to left, transparent, #fff); }
-
-        .main-logo-title {
-            width: 600px; max-width: 80vw; height: auto;
-            mix-blend-mode: screen; filter: brightness(1.2);
-            animation: titleGlow 4s infinite ease-in-out;
-        }
-        @keyframes titleGlow {
-            0%, 100% { opacity: 0.9; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.03); }
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Rreshton pllakatat njëra pas tjetrës */
+            align-items: center;     
+            gap: 40px;                
+            padding: 80px 20px;
+            box-sizing: border-box;
         }
 
-        /* CONTACT POSHTË DJATHTAS */
-        .contact-wrap { position: absolute; bottom: 40px; right: 40px; z-index: 2000; }
-        .contact-btn {
-            color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 4px;
-            border: 1px solid rgba(255,255,255,0.6); padding: 12px 35px;
-            text-transform: uppercase; transition: 0.4s; background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            width: 570px; 
+            padding: 60px; 
+            border-radius: 40px;
+            text-align: left;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* SLIDER */
-        .slider-container { width: 100%; height: 100%; position: relative; }
-        .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s; z-index: 5; }
-        .slide.active { opacity: 1; z-index: 6; }
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 10%, rgba(0,0,0,0.7) 100%); z-index: 15; }
+        .badge-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .verified-badge {
+            background: rgba(0, 242, 255, 0.15);
+            color: #00f2ff;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+        }
+
+        .premium-badge {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .glass-card h2 {
+            color: #fff;
+            font-size: 2rem; 
+            margin: 0 0 15px 0;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .domain-line {
+            display: block;
+            margin-bottom: 35px;
+        }
+
+        .domain-name {
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            font-size: 1.1rem;
+            margin: 0 0 8px 0;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .next-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .next-btn:hover {
+            background: rgba(255,255,255,0.9);
+            transform: scale(0.98);
+        }
+
+        .contact-info {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .phone-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 650px) {
+            .glass-card { width: 95%; padding: 40px; }
+        }
     </style>
 </head>
 <body>
-    <div id="intro-splash">
-        <img src="9BA7D80D-DB0A-4D39-9C65-6FD915BCF247.jpg" class="logo-anim">
-    </div>
-    <div id="neon-bg"><div class="neon-spark"></div></div>
-    <div id="home-content">
-        <div class="header-center">
-            <div style="display:flex; align-items:center; gap:40px;">
-                <div class="wing"></div>
-                <img src="9BA7D80D-DB0A-4D39-9C65-6FD915BCF247.jpg" class="main-logo-title">
-                <div class="wing right"></div>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="main-wrapper">
+        
+        <div class="glass-card">
+            <div class="badge-container">
+                <div class="badge verified-badge"><span class="material-icons">verified</span> verified</div>
+                <div class="badge premium-badge"><span class="material-icons">stars</span> premium domain</div>
+            </div>
+            <h2>Buy Now</h2>
+            <div class="domain-line">
+                <p class="domain-name">dubrent.com is for sale now</p>
+                <p class="price">9,000 USD</p>
+            </div>
+            <a href="https://www.namecheap.com/domains/registration/results/?domain=dubrent.com" class="next-btn">Buy Domain</a>
+            <div class="contact-info">
+                Need help? Give us a call<br>
+                <a href="tel:+38970878227" class="phone-link">+389 70 878 227</a> 
             </div>
         </div>
-        <div class="contact-wrap"><a href="tel:+389070878227" class="contact-btn">Contact Us</a></div>
-        <div class="slider-container">
-            <div class="overlay"></div>
-            <div class="slide active" style="background-image: url('IMG_1022.jpg');"></div>
-            <div class="slide" style="background-image: url('IMG_1024.jpg');"></div>
-            <div class="slide" style="background-image: url('IMG_1025.jpg');"></div>
-            <div class="slide" style="background-image: url('IMG_1026.jpg');"></div>
-            <div class="slide" style="background-image: url('IMG_1027.jpg');"></div>
+
+        <div class="glass-card">
+            <div class="badge-container">
+                <div class="badge verified-badge"><span class="material-icons">verified</span> verified</div>
+                <div class="badge premium-badge"><span class="material-icons">stars</span> premium domain</div>
+            </div>
+            <h2>Buy Now</h2>
+            <div class="domain-line">
+                <p class="domain-name">dubmall.com is for sale now</p>
+                <p class="price">25,000 USD</p>
+            </div>
+            <a href="https://www.namecheap.com/domains/registration/results/?domain=dubmall.com" class="next-btn">Buy Domain</a>
+            <div class="contact-info">
+                Need help? Give us a call<br>
+                <a href="tel:+38970878227" class="phone-link">+389 70 878 227</a> 
+            </div>
         </div>
+
     </div>
+
     <script>
-        window.onload = () => {
-            const splash = document.getElementById('intro-splash');
-            const home = document.getElementById('home-content');
-            const neon = document.getElementById('neon-bg');
-            let current = 0;
-            const slides = document.querySelectorAll('.slide');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
 
-            setInterval(() => {
-                slides[current].classList.remove('active');
-                current = (current + 1) % slides.length;
-                slides[current].classList.add('active');
-            }, 3500);
+        class Firework {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.targetY = Math.random() * (canvas.height * 0.7) + 50;
+                this.speed = 3 + Math.random() * 3;
+                this.angle = -Math.PI / 2 + (Math.random() * 0.4 - 0.2);
+                this.velocity = { x: Math.cos(this.angle) * this.speed, y: Math.sin(this.angle) * this.speed };
+                const rand = Math.random();
+                if (rand > 0.85) this.explosionSize = 150;
+                else if (rand > 0.4) this.explosionSize = 70;
+                else this.explosionSize = 30;
+                this.dead = false;
+                this.trail = [];
+            }
+            update() {
+                this.trail.push({x: this.x, y: this.y});
+                if (this.trail.length > 8) this.trail.shift();
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                if (this.y <= this.targetY) { this.explode(); this.dead = true; }
+            }
+            draw() {
+                ctx.beginPath(); ctx.strokeStyle = "rgba(255, 255, 255, 0.3)"; ctx.lineWidth = 1.5;
+                if(this.trail.length > 0) { ctx.moveTo(this.trail[0].x, this.trail[0].y); ctx.lineTo(this.x, this.y); ctx.stroke(); }
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2); ctx.fillStyle = "#fff"; ctx.fill();
+            }
+            explode() {
+                const neonColors = ['#00f2ff', '#00ffaa', '#ff00ee', '#ffff00', '#ff3300', '#4d4dff', '#ffffff'];
+                const color = neonColors[Math.floor(Math.random() * neonColors.length)];
+                for (let i = 0; i < this.explosionSize; i++) { particles.push(new Particle(this.x, this.y, color)); }
+            }
+        }
 
-            setTimeout(() => {
-                splash.style.opacity = '0';
-                neon.style.opacity = '1';
-                setTimeout(() => {
-                    splash.style.display = 'none';
-                    home.style.opacity = '1';
-                }, 800);
-            }, 2000);
-        };
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                const angle = Math.random() * Math.PI * 2;
+                const force = Math.random() * 11;
+                this.velocity = { x: Math.cos(angle) * force, y: Math.sin(angle) * force };
+                this.alpha = 1; this.friction = 0.94; this.gravity = 0.15; this.size = Math.random() * 3 + 1;
+            }
+            draw() {
+                ctx.save(); ctx.globalAlpha = this.alpha; ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = this.color;
+                ctx.shadowBlur = 12; ctx.shadowColor = this.color; ctx.fill(); ctx.restore();
+            }
+            update() {
+                this.velocity.x *= this.friction; this.velocity.y *= this.friction; this.velocity.y += this.gravity;
+                this.x += this.velocity.x; this.y += this.velocity.y; this.alpha -= 0.01;
+            }
+        }
+
+        let fireworks = []; let particles = [];
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.18)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.07) { fireworks.push(new Firework()); }
+            fireworks.forEach((fw, index) => { fw.update(); fw.draw(); if (fw.dead) fireworks.splice(index, 1); });
+            particles.forEach((p, index) => { p.update(); p.draw(); if (p.alpha <= 0) particles.splice(index, 1); });
+            requestAnimationFrame(animate);
+        }
+        animate();
     </script>
 </body>
 </html>
