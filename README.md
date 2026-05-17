@@ -12,7 +12,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background-color: #0f172a;
+            background-color: #0f172a; /* Sfondi i errët që të pëlqeu */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,6 +30,19 @@
             text-transform: uppercase;
             text-align: center;
             padding: 0 20px;
+            
+            /* --- ANIMACIONI I SHKRONJAVE (IN EFFECT) --- */
+            opacity: 0;
+            transform: translateY(30px); /* E nis tekstin pak më poshtë */
+            animation: textIn 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; /* Lëvizja elegante lart */
+        }
+
+        /* Këtu krijojmë lëvizjen e shkronjave */
+        @keyframes textIn {
+            to {
+                opacity: 1;
+                transform: translateY(0); /* Teksti vjen në vendin e vet */
+            }
         }
 
         /* --- STILI PËR FAQEN KRYESORE --- */
@@ -68,7 +81,7 @@
 </head>
 <body>
 
-    <!-- 1. SPLASH SCREEN -->
+    <!-- 1. SPLASH SCREEN (Me animacion lëvizës) -->
     <div id="splash-screen">
         <div class="splash-text">Welcome to Macedonia</div>
     </div>
@@ -80,20 +93,21 @@
 
     <main>
         <div class="content-placeholder">
-            <p>Faqja u ngarkua me sukses në GitHub! Po presim instruksionet e radhës...</p>
+            <p>Animacioni i shkronjave u shtua! Po pres urdhrin e radhës...</p>
         </div>
     </main>
 
-    <!-- 3. ANIMACIONI 2 SEKONDA -->
+    <!-- 3. SCRIPT-I PËR ZHDUKJEN PAS 2 SEKONDA -->
     <script>
         window.addEventListener("DOMContentLoaded", function() {
+            // Presim 2 sekonda (2000ms) që turisti të shohë animacionin e bukur
             setTimeout(function() {
                 var splash = document.getElementById("splash-screen");
                 splash.style.opacity = "0";
                 setTimeout(function() {
                     splash.style.display = "none";
-                }, 500); // kjo e heq plotësisht pasi bëhet transparente
-            }, 2000); // 2 sekonda vonesë
+                }, 500); // Kjo e heq plotësisht nga ekrani pasi bëhet transparente
+            }, 2000);
         });
     </script>
 
