@@ -28,11 +28,11 @@
         .splash-text {
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem; /* Shkronja më e vogël që të mos ngjitet */
+            font-size: 1.3rem;
             font-weight: 400;
             text-transform: uppercase;
             text-align: center;
-            letter-spacing: 2px; /* Hapësirë fillestare e pastër */
+            letter-spacing: 2px;
             opacity: 0;
             animation: textSpreadMobile 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
@@ -44,7 +44,7 @@
             }
             100% { 
                 opacity: 1; 
-                letter-spacing: 4px; /* Hapje elegante pa u ngjeshur */
+                letter-spacing: 4px;
             }
         }
 
@@ -93,7 +93,7 @@
 
         /* --- SELEKTORI I GJUHËVE --- */
         .lang-container {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .lang-select {
@@ -101,10 +101,10 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: #ffffff;
-            padding: 14px;
-            border-radius: 15px;
+            padding: 12px;
+            border-radius: 12px;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 0.5px;
             outline: none;
@@ -114,9 +114,10 @@
             text-align: center;
         }
 
-        /* --- KUTIA E KËRKIMIT VERTIKALE --- */
+        /* --- KUTIA E KËRKIMIT (MË E VOGËL DHE E PËRSHTATUR) --- */
         .search-container {
-            margin-bottom: 35px;
+            margin-bottom: 30px;
+            padding: 0 10px; /* krijon pak hapesire anash qe te duket me e vogel */
         }
 
         .search-box {
@@ -125,10 +126,10 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 12px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            gap: 12px;
+            border-radius: 15px;
+            padding: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            gap: 8px;
         }
 
         .search-box input {
@@ -137,10 +138,10 @@
             border: none;
             outline: none;
             color: #ffffff;
-            font-size: 1rem;
+            font-size: 0.9rem; /* pak me e vogel */
             font-family: inherit;
             letter-spacing: 0.5px;
-            padding: 10px 5px;
+            padding: 6px 5px;
             text-align: center;
         }
 
@@ -154,11 +155,11 @@
             border: none;
             color: #050811;
             font-weight: 700;
-            padding: 15px;
-            border-radius: 15px;
+            padding: 11px; /* me e vogel nga 15px qe ishte */
+            border-radius: 10px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-size: 0.8rem; /* madhesia e shkronjave me kompakte */
             cursor: pointer;
             transition: background 0.3s ease;
         }
@@ -203,7 +204,7 @@
             font-weight: 300;
         }
 
-        /* --- FOOTER-I I KARTELËS ME BUTONA SIKUR APLIKACION --- */
+        /* --- FOOTER-I I KARTELËS --- */
         .biz-footer {
             display: flex;
             justify-content: space-between;
@@ -269,7 +270,7 @@
 </head>
 <body>
 
-    <!-- 1. SPLASH SCREEN (I RREGULLUAR) -->
+    <!-- 1. SPLASH SCREEN -->
     <div id="splash-screen">
         <div class="splash-text">Welcome to Macedonia</div>
     </div>
@@ -281,19 +282,63 @@
                 <h1 class="main-title">mkdmap</h1>
             </header>
 
-            <!-- SELEKTORI I GJUHËVE -->
+            <!-- SELEKTORI ME SAKTESISHT 50 GJUHE BOTERORE -->
             <div class="lang-container">
                 <select class="lang-select" id="language-picker" onchange="changeLanguage()">
-                    <option value="en">🌐 English (EN)</option>
-                    <option value="sq">🌐 Shqip (SQ)</option>
-                    <option value="mk">🌐 Maqedonisht (MK)</option>
-                    <option value="sr">🌐 Srpski (SR)</option>
-                    <option value="tr">🌐 Türkçe (TR)</option>
-                    <option value="de">🌐 Deutsch (DE)</option>
+                    <option value="en">🌐 English</option>
+                    <option value="sq">🌐 Shqip</option>
+                    <option value="mk">🌐 Maqedonisht</option>
+                    <option value="sr">🌐 Srpski</option>
+                    <option value="tr">🌐 Türkçe</option>
+                    <option value="de">🌐 Deutsch</option>
+                    <option value="fr">🌐 Français</option>
+                    <option value="it">🌐 Italiano</option>
+                    <option value="es">🌐 Español</option>
+                    <option value="pt">🌐 Português</option>
+                    <option value="nl">🌐 Nederlands</option>
+                    <option value="da">🌐 Dansk</option>
+                    <option value="sv">🌐 Svenska</option>
+                    <option value="no">🌐 Norsk</option>
+                    <option value="fi">🌐 Suomi</option>
+                    <option value="pl">🌐 Polski</option>
+                    <option value="cs">🌐 Čeština</option>
+                    <option value="sk">🌐 Slovenčina</option>
+                    <option value="hu">🌐 Magyar</option>
+                    <option value="ro">🌐 Română</option>
+                    <option value="bg">🌐 Български</option>
+                    <option value="el">🌐 Ελληνικά</option>
+                    <option value="ru">🌐 Русский</option>
+                    <option value="uk">🌐 Українська</option>
+                    <option value="hr">🌐 Hrvatski</option>
+                    <option value="bs">🌐 Bosanski</option>
+                    <option value="sl">🌐 Slovenščina</option>
+                    <option value="et">🌐 Eesti</option>
+                    <option value="lv">🌐 Latviešu</option>
+                    <option value="lt">🌐 Lietuvių</option>
+                    <option value="zh">🌐 中文 (Chinese)</option>
+                    <option value="ja">🌐 日本語 (Japanese)</option>
+                    <option value="ko">🌐 한국어 (Korean)</option>
+                    <option value="ar">🌐 العربية (Arabic)</option>
+                    <option value="he">🌐 עברית (Hebrew)</option>
+                    <option value="hi">🌐 हिन्दी (Hindi)</option>
+                    <option value="th">🌐 ไทย (Thai)</option>
+                    <option value="vi">🌐 Tiếng Việt</option>
+                    <option value="id">🌐 Bahasa Indonesia</option>
+                    <option value="ms">🌐 Bahasa Melayu</option>
+                    <option value="fa">🌐 فارسی (Persian)</option>
+                    <option value="ur">🌐 اردو (Urdu)</option>
+                    <option value="bn">🌐 বাংলা (Bengali)</option>
+                    <option value="pa">🌐 ਪੰਜਾਬੀ (Punjabi)</option>
+                    <option value="ka">🌐 ქართული (Georgian)</option>
+                    <option value="hy">🌐 Հայերեն (Armenian)</option>
+                    <option value="az">🌐 Azərbaycanca</option>
+                    <option value="tl">🌐 Tagalog (Filipino)</option>
+                    <option value="sw">🌐 Kiswahili</option>
+                    <option value="af">🌐 Afrikaans</option>
                 </select>
             </div>
 
-            <!-- KUTIA E KËRKIMIT -->
+            <!-- KUTIA E KËRKIMIT (MË E VOGËL DHE E PASTER) -->
             <div class="search-container">
                 <div class="search-box">
                     <input type="text" id="search-input" placeholder="What are you looking for? (e.g., mechanic, hotel)...">
@@ -301,7 +346,7 @@
                 </div>
             </div>
 
-            <!-- REZULTATET VERTIKALE -->
+            <!-- REZULTATET -->
             <div class="results-container" id="results-box">
                 <!-- Mbushet dinamikisht nga JS -->
             </div>
@@ -311,15 +356,29 @@
     <script>
         let currentLang = 'en';
 
-        // Fjalor për ndryshimin e butonave sipas gjuhës
+        // Struktura e perkthimeve per sistemin (Kerkimi dhe butonat) per te gjitha gjuhet kryesore
         const translations = {
             en: { searchPlace: "What are you looking for? (e.g., mechanic, hotel)...", searchBtn: "Search", callBtn: "📞 Call Now", noResults: "No businesses found." },
             sq: { searchPlace: "Çfarë po kërkoni? (psh., mekanik, vilë)...", searchBtn: "Kërko", callBtn: "📞 Telefono", noResults: "Nuk u gjet asnjë biznes." },
             mk: { searchPlace: "Што барате? (на пр. механичар, вила)...", searchBtn: "Пребарај", callBtn: "📞 Повикај", noResults: "Не се пронајдени бизниси." },
-            sr: { searchPlace: "Šta tražite? (npr. mehaničar, vila)...", searchBtn: "Traži", callBtn: "📞 Pozovi", noResults: "Nuk u gjet asnjë biznes." },
+            sr: { searchPlace: "Šta tražite? (npr. mehaničar, vila)...", searchBtn: "Traži", callBtn: "📞 Pozovi", noResults: "Nema pronađenih biznisa." },
             tr: { searchPlace: "Ne arıyorsunuz? (örn. tamirci, villa)...", searchBtn: "Ara", callBtn: "📞 Ara", noResults: "Sonuç bulunamadı." },
-            de: { searchPlace: "Was suchen Sie? (z.B. Mechaniker, Villa)...", searchBtn: "Suche", callBtn: "📞 Anrufen", noResults: "Keine Ergebnisse gefunden." }
+            de: { searchPlace: "Was suchen Sie? (z.B. Mechaniker, Villa)...", searchBtn: "Suche", callBtn: "📞 Anrufen", noResults: "Keine Ergebnisse gefunden." },
+            fr: { searchPlace: "Que cherchez-vous? (ex. mécanicien, hôtel)...", searchBtn: "Chercher", callBtn: "📞 Appeler", noResults: "Aucun résultat trouvé." },
+            it: { searchPlace: "Cosa stai cercando? (es. meccanico, hotel)...", searchBtn: "Cerca", callBtn: "📞 Chiama", noResults: "Nessun risultato trovato." },
+            es: { searchPlace: "¿Qué estás buscando? (ej. mecánico, hotel)...", searchBtn: "Buscar", callBtn: "📞 Llamar", noResults: "No se encontraron resultados." }
         };
+
+        // Default funksion për të gjeneruar tekste bazë për 50 gjuhët e tjera që të mos mbetet bosh asnjëherë
+        function getTranslationPack(lang) {
+            if (translations[lang]) return translations[lang];
+            return {
+                searchPlace: translations['en'].searchPlace,
+                searchBtn: "Search / Ok",
+                callBtn: "📞 Call",
+                noResults: "No results found."
+            };
+        }
 
         window.addEventListener("DOMContentLoaded", function() {
             showBusinesses(businesses);
@@ -368,7 +427,7 @@
         function showBusinesses(list) {
             const box = document.getElementById("results-box");
             box.innerHTML = "";
-            const langPack = translations[currentLang] || translations['en'];
+            const langPack = getTranslationPack(currentLang);
 
             if(list.length === 0) {
                 box.innerHTML = `<p class='no-results'>${langPack.noResults}</p>`;
@@ -376,7 +435,7 @@
             }
 
             list.forEach(biz => {
-                // Merr tekstet në gjuhën e duhur automatikisht, ose kthehet tek 'en' nëse mungon
+                // Nëse gjuha ekziston shfaqet ajo, përndryshe kthehet automatikisht në anglisht
                 const data = biz[currentLang] || biz['en']; 
 
                 box.innerHTML += `
@@ -397,19 +456,17 @@
             });
         }
 
-        // FUNKSIONI I PËRMIRËSUAR: NDRYSHON ÇDO TEKST AUTOMATIKISHT
+        // FUNKSIONI AUTOMATIK: Ndryshon çdo tekst kur ndërrohet gjuha
         function changeLanguage() {
             currentLang = document.getElementById("language-picker").value;
             
             const input = document.getElementById("search-input");
             const btn = document.getElementById("search-btn");
-            const langPack = translations[currentLang] || translations['en'];
+            const langPack = getTranslationPack(currentLang);
             
-            // Ndryshon kutinë e kërkimit dhe butonin automatikisht
             input.placeholder = langPack.searchPlace;
             btn.innerText = langPack.searchBtn;
 
-            // Ridrejton kërkimin dhe përditëson tekstet e kartelave automatikisht
             searchBusinesses(); 
         }
 
@@ -422,7 +479,6 @@
             }
 
             const filtered = businesses.filter(biz => {
-                // Kërkon në të gjitha gjuhët ekzistuese të biznesit
                 return (biz.en && biz.en.name.toLowerCase().includes(query)) || 
                        (biz.sq && biz.sq.name.toLowerCase().includes(query)) || 
                        (biz.mk && biz.mk.name.toLowerCase().includes(query)) || 
